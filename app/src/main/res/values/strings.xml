@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_sair">Sair</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="modelo_fragment">Fragmento Modelo</string>
+
+    <string name="modelo_fragment_tipo_servico">Fragmento Tipo de Serviço</string>
 </resources>
