@@ -20,16 +20,16 @@
              android:id="@+id/nav_manage"
              android:icon="@drawable/ic_menu_manage"
              android:title="Tools" />-->
-    </group>
+        <item android:title="Cadastro">
+            <menu>
+                <item
+                    android:id="@+id/nav_tipo_servico"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Tipo Serviço" />
+            </menu>
+        </item>
 
-    <item android:title="Cadastro">
-        <menu>
-            <item
-                android:id="@+id/nav_tipo_servico"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Tipo Serviço" />
-        </menu>
-    </item>
+    </group>
 
     <item android:title="Compartilhar">
         <menu>

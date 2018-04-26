@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.dae.sgosi.fragments.ModeloFragment;
-import br.com.dae.sgosi.fragments.TipoServicoFragment;
+import br.com.dae.sgosi.fragments.ListaTipoServicoFragment;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +30,7 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.novo);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,7 @@ public class PrincipalActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_tipo_servico) {
             setTitle("Tipo de Serviço");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new TipoServicoFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
 
         } else if (id == R.id.nav_compartilhar) {
 

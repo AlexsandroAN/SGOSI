@@ -10,4 +10,7 @@
     <string name="modelo_fragment">Fragmento Modelo</string>
 
     <string name="modelo_fragment_tipo_servico">Fragmento Tipo de Serviço</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
