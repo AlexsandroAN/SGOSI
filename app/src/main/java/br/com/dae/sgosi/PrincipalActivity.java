@@ -3,6 +3,7 @@ package br.com.dae.sgosi;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Principal extends AppCompatActivity
+import br.com.dae.sgosi.fragments.ModeloFragment;
+import br.com.dae.sgosi.fragments.TipoServicoFragment;
+
+public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Primeiro Passo
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,12 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Segundo Passo
+        fragmentManager = getSupportFragmentManager();
+
+        //Quarto Passo
+        // fragmentManager.beginTransaction().replace(R.id.content_fragment, new ModeloFragment()).commit();
     }
 
     @Override
@@ -83,13 +96,16 @@ public class Principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_principal) {
+            setTitle("Principal");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new ModeloFragment()).commit();
             // Handle the camera action
         } else if (id == R.id.nav_ordem_servico) {
 
         } else if (id == R.id.nav_tipo_servico) {
+            setTitle("Tipo de Serviço");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new TipoServicoFragment()).commit();
 
-        }
-        else if (id == R.id.nav_compartilhar) {
+        } else if (id == R.id.nav_compartilhar) {
 
         }
 
