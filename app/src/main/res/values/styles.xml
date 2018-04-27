@@ -17,4 +17,72 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Txt_Teste">
+        <item name="android:color">@color/txt_padrao</item>
+        <item name="android:textSize">@dimen/texto_padrao</item>
+        <item name="android:layout_marginBottom">@dimen/margin_widgets</item>
+        <item name="android:layout_marginTop">@dimen/padding_toast</item>
+    </style>
+
+    <style name="BtnDash">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">6dip</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="Txt_Estilo">
+        <item name="android:color">@color/txt_padrao</item>
+        <item name="android:textSize">@dimen/texto_padrao</item>
+        <item name="android:layout_marginBottom">@dimen/margin_widgets</item>
+    </style>
+
+    <style name="Edt_Estilo">
+        <item name="android:textSize">@dimen/texto_padrao</item>
+        <item name="android:layout_weight">@dimen/margin_widgets</item>
+    </style>
+
+    <style name="Style_Botao">
+        <item name="android:textColor">@color/txtBotao</item>
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:layout_marginBottom">@dimen/margin_widgets</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/bg_enviar</item>
+    </style>
+
+    <style name="Style_Login">
+        <item name="android:textColor">@color/txtBotao</item>
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:layout_marginBottom">@dimen/margin_widgets</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/bg_enviar</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog.Error" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/branco</item>
+        <item name="android:textColorPrimary">@color/branco</item>
+        <item name="android:background">@color/primary_error</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog.Info" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/branco</item>
+        <item name="android:textColorPrimary">@color/branco</item>
+        <item name="android:background">@color/primary_info</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog.Sucesso" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/branco</item>
+        <item name="android:textColorPrimary">@color/branco</item>
+        <item name="android:background">@color/primary_sucesso</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog.Alerta" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/branco</item>
+        <item name="android:textColorPrimary">@color/branco</item>
+        <item name="android:background">@color/primary_alerta</item>
+    </style>
+
 </resources>
