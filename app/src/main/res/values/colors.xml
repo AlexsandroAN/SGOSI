@@ -3,5 +3,15 @@
     <color name="colorPrimary">#00956B</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="txt_padrao">#0c0d0c</color>
+    <color name="bg_color">#d6eccd</color>
+    <color name="bg_toast">#E69A6C</color>
+    <color name="bg_enviar">#1a5903</color>
+    <color name="txtBotao">#FFFFFF</color>
     <color name="branco">#ffffff</color>
+    <color name="primary_error">#f9acc7</color>
+    <color name="primary_info">#00956B</color>
+    <color name="primary_sucesso">#7BBDA9</color>
+    <color name="primary_alerta">#837c7d</color>
+    <color name="btn_background">#00956B</color>
 </resources>
