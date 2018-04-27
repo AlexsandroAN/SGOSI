@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,11 +60,9 @@ public class ListaTipoServicoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_tipo_servico, container, false);
 
         tipoServicoDAO = new TipoServicoDAO(getContext());
-
         listaViewTipoServico = (ListView) view.findViewById(R.id.listViewTipoServico);
 
         listViewTipoServico = tipoServicoDAO.getLista();
-
 
         if (listViewTipoServico != null) {
             adapter = new ArrayAdapter<TipoServico>(getContext(), android.R.layout.simple_list_item_1, listViewTipoServico);
@@ -72,6 +71,8 @@ public class ListaTipoServicoFragment extends Fragment {
 
         btnCadastrarTipoServico = view.findViewById(R.id.btnCadastrarTipoServico);
 
+        //carregarTipoServico();
+
         btnCadastrarTipoServico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,33 @@ public class ListaTipoServicoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return view;
     }
+
+
+    public void carregarTipoServico() {
+        tipoServicoDAO = new TipoServicoDAO(getContext());
+        listViewTipoServico = tipoServicoDAO.getLista();
+        tipoServicoDAO.close();
+
+        if (listViewTipoServico != null) {
+            adapter = new ArrayAdapter<TipoServico>(getContext(), android.R.layout.simple_list_item_1, listViewTipoServico);
+            listaViewTipoServico.setAdapter(adapter);
+        }
+    }
+
+    private void setArrayAdapterTipoServico() {
+        listaTipoServicos = tipoServicoDAO.getLista();
+
+        List<String> valores = new ArrayList<String>();
+        for (TipoServico ts : listaTipoServicos) {
+            valores.add(ts.getNome());
+        }
+        adapter.clear();
+        adapter.addAll(valores);
+        listaViewTipoServico.setAdapter(adapter);
+    }
+
 
 }

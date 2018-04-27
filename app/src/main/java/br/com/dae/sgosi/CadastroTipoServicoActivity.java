@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.dao.TipoServicoDAO;
 import br.com.dae.sgosi.entidade.TipoServico;
+import br.com.dae.sgosi.fragments.ListaTipoServicoFragment;
 
 public class CadastroTipoServicoActivity extends AppCompatActivity {
 
@@ -20,6 +23,8 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
     private Button btnSalvar;
     private TipoServico editarTipoServico, tipoServico;
     private TipoServicoDAO tipoServicoDAO;
+    // Primeiro Passo
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +33,24 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setTitle("Adicionar Tipo Serviço");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        // Segundo Passo
+        fragmentManager = getSupportFragmentManager();
+
         tipoServico = new TipoServico();
         tipoServicoDAO = new TipoServicoDAO(CadastroTipoServicoActivity.this);
 
         Intent intent = getIntent();
-        editarTipoServico = (TipoServico) intent.getSerializableExtra("tipo_servico-escolhido");
+        // editarTipoServico = (TipoServico) intent.getSerializableExtra("tipo_servico-escolhido");
 
         edtNome = (EditText) findViewById(R.id.edtNomeTipoServico);
         edtDescricao = (EditText) findViewById(R.id.edtDescricaoTipoServico);
 
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
 
-
-        getSupportActionBar().setTitle("Cadastrar Tipo Serviço");
         btnSalvar.setText("Salvar");
 
 
@@ -51,9 +61,11 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                 tipoServico.setNome(edtNome.getText().toString());
                 tipoServico.setDescricao(edtDescricao.getText().toString());
 
-                    tipoServicoDAO.salvarTipoServico(tipoServico);
-                    tipoServicoDAO.close();
+                tipoServicoDAO.salvarTipoServico(tipoServico);
+                tipoServicoDAO.close();
+                Util.showMsgToast(CadastroTipoServicoActivity.this, "Tipo de Serviço salvo com sucesso!");
 
+               // fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
 
             }
         });
