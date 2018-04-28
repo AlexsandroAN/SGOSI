@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.FrameMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +21,9 @@ import br.com.dae.sgosi.fragments.ListaTipoServicoFragment;
 public class CadastroTipoServicoActivity extends AppCompatActivity {
 
     private EditText edtNome, edtDescricao;
-    private Button btnSalvar;
+    private Button btnPoliform;
     private TipoServico editarTipoServico, tipoServico;
     private TipoServicoDAO tipoServicoDAO;
-    // Primeiro Passo
-    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,47 +36,58 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        // Segundo Passo
-        fragmentManager = getSupportFragmentManager();
 
         tipoServico = new TipoServico();
         tipoServicoDAO = new TipoServicoDAO(CadastroTipoServicoActivity.this);
 
         Intent intent = getIntent();
-        // editarTipoServico = (TipoServico) intent.getSerializableExtra("tipo_servico-escolhido");
+        editarTipoServico = (TipoServico) intent.getSerializableExtra("tipo_servico-escolhido");
 
         edtNome = (EditText) findViewById(R.id.edtNomeTipoServico);
         edtDescricao = (EditText) findViewById(R.id.edtDescricaoTipoServico);
 
-        btnSalvar = (Button) findViewById(R.id.btnSalvar);
-
-        btnSalvar.setText("Salvar");
+        btnPoliform = (Button) findViewById(R.id.btn_Poliform_TipoServico);
 
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
+        if (editarTipoServico != null) {
+            getSupportActionBar().setTitle("Alterar Tipo Serviço");
+            btnPoliform.setText("Alterar Tipo Serviço");
+
+            edtNome.setText(editarTipoServico.getNome());
+            edtDescricao.setText(editarTipoServico.getDescricao());
+
+            tipoServico.setId(editarTipoServico.getId());
+        } else {
+            getSupportActionBar().setTitle("Cadastrar Tipo Serviço");
+            btnPoliform.setText("Cadastrar novo Tipo Serviço");
+        }
+
+        btnPoliform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 tipoServico.setNome(edtNome.getText().toString());
                 tipoServico.setDescricao(edtDescricao.getText().toString());
 
-                tipoServicoDAO.salvarTipoServico(tipoServico);
-                tipoServicoDAO.close();
-                Util.showMsgToast(CadastroTipoServicoActivity.this, "Tipo de Serviço salvo com sucesso!");
+                if (!validarTipoServico(tipoServico)) {
+                    if (btnPoliform.getText().toString().equals("Cadastrar novo Tipo Serviço")) {
+                        tipoServicoDAO.salvarTipoServico(tipoServico);
+                        tipoServicoDAO.close();
+                        Util.showMsgToast(CadastroTipoServicoActivity.this, "Tipo de Serviço salvo com sucesso!");
+                    } else {
+                        tipoServicoDAO.alterarTipoServico(tipoServico);
+                        tipoServicoDAO.close();
+                        Util.showMsgToast(CadastroTipoServicoActivity.this, "Tipo de Serviço modificado com sucesso!");
+                    }
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
 
-               // fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
-
+                    Intent i = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     private boolean validarTipoServico(TipoServico tipoServico) {
@@ -100,6 +110,8 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                 finish();
                 Intent intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
                 startActivity(intent);
+               // FragmentManager fragmentManager = getSupportFragmentManager();
+               // fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
                 break;
         }
         return true;

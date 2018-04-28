@@ -20,5 +20,12 @@
             android:layout_height="wrap_content"
             android:text="Cadastrar"/>
 
+        <!--<fragment-->
+        <!--android:id="@+id/fragment"-->
+        <!--android:name="br.com.dae.sgosi.fragments.CadastroTipoServicoFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:tag="TAG"-->
+        <!--/>-->
 
 </RelativeLayout>

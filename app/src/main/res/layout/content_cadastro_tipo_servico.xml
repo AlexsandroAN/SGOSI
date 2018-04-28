@@ -32,7 +32,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/btnSalvar"
+            android:id="@+id/btn_Poliform_TipoServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="btn" />
