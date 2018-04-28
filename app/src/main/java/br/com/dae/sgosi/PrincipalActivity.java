@@ -40,11 +40,7 @@ public class PrincipalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Segundo Passo
         fragmentManager = getSupportFragmentManager();
-
-        //Quarto Passo
-        // fragmentManager.beginTransaction().replace(R.id.content_fragment, new ModeloFragment()).commit();
     }
 
     @Override
@@ -59,7 +55,6 @@ public class PrincipalActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }

@@ -59,7 +59,6 @@ public class ListaTipoServicoFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_lista_tipo_servico, container, false);
 
-       // tipoServicoDAO = new TipoServicoDAO(getContext());
         listaViewTipoServico = (ListView) view.findViewById(R.id.listViewTipoServico);
 
         carregarTipoServico();
@@ -67,12 +66,9 @@ public class ListaTipoServicoFragment extends Fragment {
         adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
         setArrayAdapterTipoServico();
 
-        listaTipoServicos.size();
-
         listaViewTipoServico.setOnItemClickListener(clickListenerTipoServico);
         listaViewTipoServico.setOnCreateContextMenuListener(contextMenuListener);
         listaViewTipoServico.setOnItemLongClickListener(longClickListener);
-
 
         btnCadastrarTipoServico = view.findViewById(R.id.btnCadastrarTipoServico);
 
