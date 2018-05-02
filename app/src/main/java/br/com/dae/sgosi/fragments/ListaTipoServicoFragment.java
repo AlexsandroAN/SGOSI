@@ -20,7 +20,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.dae.sgosi.CadastroTipoServicoActivity;
+import br.com.dae.sgosi.activity.CadastroTipoServicoActivity;
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;

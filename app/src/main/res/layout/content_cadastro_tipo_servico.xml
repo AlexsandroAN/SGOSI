@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="br.com.dae.sgosi.CadastroTipoServicoActivity"
+    tools:context="br.com.dae.sgosi.activity.CadastroTipoServicoActivity"
     tools:showIn="@layout/activity_cadastro_tipo_servico">
 
     <LinearLayout

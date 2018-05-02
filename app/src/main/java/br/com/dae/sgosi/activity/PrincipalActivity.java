@@ -1,4 +1,4 @@
-package br.com.dae.sgosi;
+package br.com.dae.sgosi.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.fragments.ModeloFragment;
 import br.com.dae.sgosi.fragments.ListaTipoServicoFragment;
 
