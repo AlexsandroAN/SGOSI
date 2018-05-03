@@ -35,7 +35,7 @@
             android:id="@+id/btn_Poliform_TipoServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="btn" />
+            android:text="Salvar" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
