@@ -65,7 +65,6 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tipo_servico, container, false);
 
-        // tipoServicoDAO = new TipoServicoDAO(getContext());
         listaViewTipoServico = (ListView) view.findViewById(R.id.listViewTipoServico);
         carregarTipoServico();
 
@@ -76,6 +75,7 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
         listaViewTipoServico.setOnCreateContextMenuListener(contextMenuListener);
         listaViewTipoServico.setOnItemLongClickListener(longClickListener);
 
+        // Chamar tela de cadastro Tipo de Serviço
         FloatingActionButton fab =  (FloatingActionButton) view.findViewById(R.id.addTipoServico);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

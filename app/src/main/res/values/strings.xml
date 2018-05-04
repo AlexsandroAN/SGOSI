@@ -16,4 +16,5 @@
     <string name="title_activity_cadastro_tipo_servico">CadastroTipoServicoActivity</string>
     <string name="title_activity_lista_tipo_servico">ListaTipoServicoActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_cadastro_cliente">CadastroClienteActivity</string>
 </resources>

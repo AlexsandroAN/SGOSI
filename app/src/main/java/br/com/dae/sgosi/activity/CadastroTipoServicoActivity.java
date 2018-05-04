@@ -31,7 +31,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       // getSupportActionBar().setTitle("Adicionar Tipo Serviço");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -74,12 +73,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                         tipoServicoDAO.close();
                         Toast.makeText(CadastroTipoServicoActivity.this, "Tipo de Serviço editado com sucesso!", Toast.LENGTH_LONG ).show();
                     }
-
-          /*          FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frameConteudo, new TipoServicoFragment());
-                    transaction.commit();*/
-//                    FragmentManager fragmentManager = getSupportFragmentManager();
-//                    fragmentManager.beginTransaction().replace(R.id.content_fragment, new ListaTipoServicoFragment()).commit();
 
                     Intent i = new Intent(CadastroTipoServicoActivity.this, MainActivity.class);
                     startActivity(i);

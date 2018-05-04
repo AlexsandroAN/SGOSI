@@ -1,7 +1,11 @@
 package br.com.dae.sgosi.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private OrdemServicoFragment ordemServicoFragment;
     private TipoServicoFragment tipoServicoFragment;
     private ViewPager viewPager;
+    private static final  int PERMISSION_CONTACT = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // <editor-fold defaultstate="collapsed" desc=">>> Pedir permissão para acessar os contatos">
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        PERMISSION_CONTACT);
+            }
+        }
+        // </editor-fold>
 
         buttonCliente = findViewById(R.id.btnCliente);
         buttonOrdemServico = findViewById(R.id.btnOrdemServico);
@@ -38,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configurar objeto para o Fragmento
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frameConteudo, new TipoServicoFragment());
+        transaction.add(R.id.frameConteudo, new OrdemServicoFragment());
         transaction.commit();
 
         buttonCliente.setOnClickListener(new View.OnClickListener() {
