@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
+import java.util.List;
 import br.com.dae.sgosi.Util.Constantes;
 import br.com.dae.sgosi.entidade.Cliente;
 
@@ -52,6 +53,21 @@ public class ClienteDAO extends SQLiteOpenHelper {
         db.insert("cliente", null, values);
     }
 
+    // Método para salvar uma List de cliente
+    public void salvarListaCliente(List<Cliente> listaClientes) {
+        for (Cliente cliente: listaClientes){
+            ContentValues values = new ContentValues();
+            values.put("nome", cliente.getNome());
+            values.put("descricao", cliente.getDescricao());
+            values.put("endereco", cliente.getEndereco());
+            values.put("email", cliente.getEmail());
+            values.put("telefone", cliente.getTelefone());
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.insert("cliente", null, values);
+        }
+    }
+
     public void alterarCliente(Cliente cliente) {
         ContentValues values = new ContentValues();
 
@@ -91,5 +107,18 @@ public class ClienteDAO extends SQLiteOpenHelper {
         cliente.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
         cliente.setEmail(cursor.getString(cursor.getColumnIndex("email")));
         cliente.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
+    }
+
+    public Cliente consultarClientePorId(int idCliente) {
+        Cliente cliente = new Cliente();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("cliente", null, "ID = ?", new String[]{String.valueOf(idCliente)}, null, null, "nome");
+
+        if (cursor.moveToNext()) {
+            setPessoaFromCursor(cursor, cliente);
+        }
+
+        return cliente;
     }
 }

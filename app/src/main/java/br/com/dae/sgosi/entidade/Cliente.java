@@ -1,6 +1,7 @@
 package br.com.dae.sgosi.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by 39091 on 11/07/2016.
@@ -67,9 +68,12 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
+    //Metodo sobreescrito para que não aparece o nome do componente
+    //na listView
     @Override
     public String toString() {
-        return nome.toString();
+        // TODO Auto-generated method stub
+        return nome + "-" + telefone;
     }
 }
 

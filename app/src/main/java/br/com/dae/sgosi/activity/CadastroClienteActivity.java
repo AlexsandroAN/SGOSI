@@ -2,9 +2,6 @@ package br.com.dae.sgosi.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -15,11 +12,7 @@ import android.widget.Toast;
 
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.dao.ClienteDAO;
-import br.com.dae.sgosi.dao.TipoServicoDAO;
 import br.com.dae.sgosi.entidade.Cliente;
-import br.com.dae.sgosi.entidade.TipoServico;
-import br.com.dae.sgosi.fragments.ClienteFragment;
-import br.com.dae.sgosi.fragments.TipoServicoFragment;
 
 public class CadastroClienteActivity extends AppCompatActivity {
 

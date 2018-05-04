@@ -2,13 +2,15 @@ package br.com.dae.sgosi.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,15 +18,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dae.sgosi.R;
-import br.com.dae.sgosi.activity.CadastroClienteActivity;
+import br.com.dae.sgosi.Util.TipoMsg;
+import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroTipoServicoActivity;
 import br.com.dae.sgosi.dao.ClienteDAO;
-import br.com.dae.sgosi.dao.TipoServicoDAO;
 import br.com.dae.sgosi.entidade.Cliente;
 import br.com.dae.sgosi.entidade.Contatos;
 import br.com.dae.sgosi.entidade.EntidadeContatos;
@@ -45,7 +48,6 @@ public class ClienteFragment extends Fragment {
     private ArrayAdapter adapter;
     private int posicaoSelecionada;
     private View view;
-    private TextView textTipoServico;
     private Context context;
 
 
@@ -67,16 +69,18 @@ public class ClienteFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_cliente, container, false);
 
         listaViewCliente = (ListView) view.findViewById(R.id.listViewCliente);
-        // carregarCliente();
 
         List ListaContatos = new ArrayList();
 
-        // pegar todos contatos do dispositivo
-        //Contatos Contato = new Contatos(getContext());
-        //listaContato = Contato.getContatos();
-
         adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
-       //
+        //setArrayAdapterCliente();
+
+        clienteDAO = new ClienteDAO(getContext());
+
+
+        listaViewCliente.setOnItemClickListener(clickListenerCliente);
+        listaViewCliente.setOnCreateContextMenuListener(contextMenuListener);
+        listaViewCliente.setOnItemLongClickListener(longClickListener);
 
 
         // Chamar tela de cadastro Cliente
@@ -86,9 +90,12 @@ public class ClienteFragment extends Fragment {
             public void onClick(View view) {
                 // pegar todos contatos do dispositivo
                 Contatos Contato = new Contatos(getContext());
-                listaContato = Contato.getContatos();
+                listaCliente = Contato.getContatos();
+                listaCliente.size();
+                clienteDAO.salvarListaCliente(listaCliente);
+                carregarCliente();
                 setArrayAdapterCliente();
-                Snackbar.make(view, "Atualizando " + listaContato.size() + " Contatos", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Atualizando " + listaCliente.size() + " Contatos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -96,8 +103,9 @@ public class ClienteFragment extends Fragment {
         return view;
     }
 
+
     public void carregarCliente() {
-        clienteDAO = new ClienteDAO(getContext());
+       // clienteDAO = new ClienteDAO(getContext());
         listViewCliente = clienteDAO.getLista();
         clienteDAO.close();
 
@@ -109,20 +117,20 @@ public class ClienteFragment extends Fragment {
 
     private void setArrayAdapterCliente() {
         // adapter dos clientes
-        //listaCliente = clienteDAO.getLista();
+        listaCliente = clienteDAO.getLista();
         List<String> valores = new ArrayList<String>();
 
         // adapter dos contatos do dispositivo
-        if(listaContato != null){
-            for (EntidadeContatos lista : listaContato) {
-                valores.add(lista.getNome());
-            }
-        }
+//        if(listaContato != null){
+//            for (EntidadeContatos lista : listaContato) {
+//                valores.add(lista.getNome());
+//            }
+//        }
 
         // adapter dos clientes
-//        for (Cliente c : listaCliente) {
-//            valores.add(c.getNome());
-//        }
+        for (Cliente c : listaCliente) {
+            valores.add(c.getNome());
+        }
         adapter.clear();
         adapter.addAll(valores);
         listaViewCliente.setAdapter(adapter);
@@ -135,5 +143,53 @@ public class ClienteFragment extends Fragment {
             return false;
         }
     };
+
+    private AdapterView.OnItemClickListener clickListenerCliente = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Cliente cliente = clienteDAO.consultarClientePorId(listaCliente.get(position).getId());
+            StringBuilder info = new StringBuilder();
+            info.append("Nome: " + cliente.getNome());
+            info.append("\nDescrição: " + cliente.getDescricao());
+            info.append("\nEndereço: " + cliente.getEndereco());
+            info.append("\nEmail: " + cliente.getEmail());
+           // info.append("\nTelefone: " + cliente.getTelefone());
+            Util.showMsgAlertOK(getActivity(), "Info", info.toString(), TipoMsg.INFO);
+        }
+    };
+
+    private View.OnCreateContextMenuListener contextMenuListener = new View.OnCreateContextMenuListener() {
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Opções").setHeaderIcon(R.drawable.edit);
+            menu.add(1, 10, 1, "Editar");
+            menu.add(1, 20, 2, "Deletar");
+        }
+    };
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 10:
+                Cliente cliente = clienteDAO.consultarClientePorId(listaCliente.get(posicaoSelecionada).getId());
+                Intent i = new Intent(getContext(), CadastroTipoServicoActivity.class);
+                i.putExtra("cliente-escolhido", cliente);
+                startActivity(i);
+                break;
+            case 20:
+                Util.showMsgConfirm(getActivity(), "Remover Cliente", "Deseja remover realmente o(a) " + listaCliente.get(posicaoSelecionada).getNome() + "?",
+                        TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                clienteDAO.deletarCliente(listaCliente.get(posicaoSelecionada));
+                                setArrayAdapterCliente();
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Cliente deletado com sucesso!", Toast.LENGTH_LONG ).show();
+                            }
+                        });
+                break;
+        }
+        return true;
+    }
 
 }
