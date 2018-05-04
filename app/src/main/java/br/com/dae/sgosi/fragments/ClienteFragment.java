@@ -26,6 +26,7 @@ import java.util.List;
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
+import br.com.dae.sgosi.activity.CadastroClienteActivity;
 import br.com.dae.sgosi.activity.CadastroTipoServicoActivity;
 import br.com.dae.sgosi.dao.ClienteDAO;
 import br.com.dae.sgosi.entidade.Cliente;
@@ -67,21 +68,17 @@ public class ClienteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cliente, container, false);
+        clienteDAO = new ClienteDAO(getContext());
 
         listaViewCliente = (ListView) view.findViewById(R.id.listViewCliente);
 
         List ListaContatos = new ArrayList();
 
-        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
-        //setArrayAdapterCliente();
-
-        clienteDAO = new ClienteDAO(getContext());
-
+        carregarCliente();
 
         listaViewCliente.setOnItemClickListener(clickListenerCliente);
         listaViewCliente.setOnCreateContextMenuListener(contextMenuListener);
         listaViewCliente.setOnItemLongClickListener(longClickListener);
-
 
         // Chamar tela de cadastro Cliente
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.atualizarClientes);
@@ -90,11 +87,11 @@ public class ClienteFragment extends Fragment {
             public void onClick(View view) {
                 // pegar todos contatos do dispositivo
                 Contatos Contato = new Contatos(getContext());
-                listaCliente = Contato.getContatos();
-                listaCliente.size();
+                // Pegar todos os contatos
+                listaCliente = Contato.getContatos(listViewCliente);
+                // Atualizar os clientes
                 clienteDAO.salvarListaCliente(listaCliente);
                 carregarCliente();
-                setArrayAdapterCliente();
                 Snackbar.make(view, "Atualizando " + listaCliente.size() + " Contatos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -105,7 +102,6 @@ public class ClienteFragment extends Fragment {
 
 
     public void carregarCliente() {
-       // clienteDAO = new ClienteDAO(getContext());
         listViewCliente = clienteDAO.getLista();
         clienteDAO.close();
 
@@ -113,21 +109,19 @@ public class ClienteFragment extends Fragment {
             adapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, listViewCliente);
             listaViewCliente.setAdapter(adapter);
         }
+        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
+        setArrayAdapterCliente();
     }
 
     private void setArrayAdapterCliente() {
-        // adapter dos clientes
         listaCliente = clienteDAO.getLista();
         List<String> valores = new ArrayList<String>();
-
         // adapter dos contatos do dispositivo
 //        if(listaContato != null){
 //            for (EntidadeContatos lista : listaContato) {
 //                valores.add(lista.getNome());
 //            }
 //        }
-
-        // adapter dos clientes
         for (Cliente c : listaCliente) {
             valores.add(c.getNome());
         }
@@ -153,7 +147,7 @@ public class ClienteFragment extends Fragment {
             info.append("\nDescrição: " + cliente.getDescricao());
             info.append("\nEndereço: " + cliente.getEndereco());
             info.append("\nEmail: " + cliente.getEmail());
-           // info.append("\nTelefone: " + cliente.getTelefone());
+            info.append("\nTelefone: " + cliente.getTelefone());
             Util.showMsgAlertOK(getActivity(), "Info", info.toString(), TipoMsg.INFO);
         }
     };
@@ -172,7 +166,7 @@ public class ClienteFragment extends Fragment {
         switch (item.getItemId()) {
             case 10:
                 Cliente cliente = clienteDAO.consultarClientePorId(listaCliente.get(posicaoSelecionada).getId());
-                Intent i = new Intent(getContext(), CadastroTipoServicoActivity.class);
+                Intent i = new Intent(getContext(), CadastroClienteActivity.class);
                 i.putExtra("cliente-escolhido", cliente);
                 startActivity(i);
                 break;
@@ -184,7 +178,7 @@ public class ClienteFragment extends Fragment {
                                 clienteDAO.deletarCliente(listaCliente.get(posicaoSelecionada));
                                 setArrayAdapterCliente();
                                 adapter.notifyDataSetChanged();
-                                Toast.makeText(getContext(), "Cliente deletado com sucesso!", Toast.LENGTH_LONG ).show();
+                                Toast.makeText(getContext(), "Cliente deletado com sucesso!", Toast.LENGTH_LONG).show();
                             }
                         });
                 break;
