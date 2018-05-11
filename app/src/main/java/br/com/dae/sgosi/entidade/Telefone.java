@@ -12,15 +12,15 @@ import java.util.List;
  */
 
 public class Telefone {
-    private int _IDContato;
+    private String _IDContato;
 
     private Context _ctx;
 
-    public Telefone(int idCliente, Context Contexto)
+    public Telefone(String IDContato, Context Contexto)
 
     {
 
-        this._IDContato = idCliente;
+        this._IDContato = IDContato;
 
         this._ctx = Contexto;
 

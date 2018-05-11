@@ -53,7 +53,7 @@ public class CadastroClienteActivity extends AppCompatActivity {
             edtDescricao.setText(editarCliente.getDescricao());
             edtEndereco.setText(editarCliente.getEndereco());
             edtEmail.setText(editarCliente.getEmail());
-            edtTelefone.setText(editarCliente.getTelefone());
+           // edtTelefone.setText(editarCliente.getTelefone());
         } else {
             getSupportActionBar().setTitle("Adicionar Cliente");
         }
@@ -66,7 +66,7 @@ public class CadastroClienteActivity extends AppCompatActivity {
                 cliente.setDescricao(edtDescricao.getText().toString());
                 cliente.setEndereco(edtEndereco.getText().toString());
                 cliente.setEmail(edtEmail.getText().toString());
-                cliente.setTelefone(edtTelefone.getText().toString());
+               // cliente.setTelefone(edtTelefone.getText().toString());
 
                 if (!validarCliente(cliente)) {
                     if (getSupportActionBar().getTitle().equals("Adicionar Cliente")) {

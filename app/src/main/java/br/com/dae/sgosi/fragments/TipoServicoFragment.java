@@ -64,12 +64,11 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tipo_servico, container, false);
+        tipoServicoDAO = new TipoServicoDAO(getContext());
 
         listaViewTipoServico = (ListView) view.findViewById(R.id.listViewTipoServico);
-        carregarTipoServico();
 
-        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
-        setArrayAdapterTipoServico();
+        carregarTipoServico();
 
         listaViewTipoServico.setOnItemClickListener(clickListenerTipoServico);
         listaViewTipoServico.setOnCreateContextMenuListener(contextMenuListener);
@@ -91,7 +90,6 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
     }
 
     public void carregarTipoServico() {
-        tipoServicoDAO = new TipoServicoDAO(getContext());
         listViewTipoServico = tipoServicoDAO.getLista();
         tipoServicoDAO.close();
 
@@ -99,6 +97,8 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
             adapter = new ArrayAdapter<TipoServico>(getContext(), android.R.layout.simple_list_item_1, listViewTipoServico);
             listaViewTipoServico.setAdapter(adapter);
         }
+        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
+        setArrayAdapterTipoServico();
     }
 
     private void setArrayAdapterTipoServico() {

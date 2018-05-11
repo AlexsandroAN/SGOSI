@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.dae.sgosi.Util.Constantes;
 import br.com.dae.sgosi.entidade.Cliente;
+import br.com.dae.sgosi.entidade.EntidadeContatos;
 
 /**
  * Created by 39091 on 23/04/2018.
@@ -54,15 +55,14 @@ public class ClienteDAO extends SQLiteOpenHelper {
     }
 
     // Método para salvar uma List de cliente
-    public void salvarListaCliente(List<Cliente> listaClientes) {
-        for (Cliente cliente: listaClientes){
+    public void salvarListaCliente(List<EntidadeContatos> contatos) {
+        for (EntidadeContatos contato: contatos){
             ContentValues values = new ContentValues();
-            values.put("nome", cliente.getNome());
-            values.put("descricao", cliente.getDescricao());
-            values.put("endereco", cliente.getEndereco());
-            values.put("email", cliente.getEmail());
-            values.put("telefone", cliente.getTelefone());
-
+            values.put("nome", contato.getNome());
+            values.put("descricao", contato.getNome());
+            values.put("endereco", contato.getNome());
+            values.put("email", contato.getNome());
+            values.put("telefone", contato.getTelefones().get(0).toString());
             SQLiteDatabase db = this.getWritableDatabase();
             db.insert("cliente", null, values);
         }

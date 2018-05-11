@@ -5,7 +5,6 @@ package br.com.dae.sgosi.entidade;
  */
 
 public class EntidadeTelefone {
-
     private String Telefone;
     public String getTelefone() {
         return Telefone;
@@ -21,4 +20,5 @@ public class EntidadeTelefone {
         return "Telefone: " + Telefone;
     }
 }
+
 

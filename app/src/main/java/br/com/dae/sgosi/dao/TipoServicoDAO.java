@@ -39,6 +39,19 @@ public class TipoServicoDAO extends SQLiteOpenHelper {
         query1.append(" telefone TEXT(20))");
 
         db.execSQL(query1.toString());
+
+        StringBuilder queryTbOrdemServico = new StringBuilder();
+        queryTbOrdemServico.append("CREATE TABLE ordem_servico (");
+        queryTbOrdemServico.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
+        queryTbOrdemServico.append(" cliente  INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" tipoServico INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" status INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" dataInicio INTERGER,");
+        queryTbOrdemServico.append(" dataFim INTERGER,");
+        queryTbOrdemServico.append(" descricaoInicio TEXT,");
+        queryTbOrdemServico.append(" descricaoFim TEXT)");
+
+        db.execSQL(queryTbOrdemServico.toString());
     }
 
     @Override

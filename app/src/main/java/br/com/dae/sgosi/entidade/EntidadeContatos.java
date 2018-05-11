@@ -8,66 +8,40 @@ import java.util.List;
 
 public class EntidadeContatos {
 
-    private String id;
-    private String nome;
-    private String descricao;
-    private String endereco;
-    private String email;
-    private List telefones;
+    private String ID;
+    private String Nome;
+    private String Email;
+    private List Telefones;
 
-    public String getId() {
-        return id;
+    public String getID() {
+        return ID;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setID(String string) {
+        ID = string;
     }
-
     public String getNome() {
-        return nome;
+        return Nome;
     }
-
     public void setNome(String nome) {
-        this.nome = nome;
+        Nome = nome;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public List getTelefones() {
-        return telefones;
+        return Telefones;
     }
-
     public void setTelefones(List telefones) {
-        this.telefones = telefones;
+        Telefones = telefones;
     }
-
+    public String getEmail() {
+        return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
     //Metodo sobreescrito para que não aparece o nome do componente
     //na listView
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return nome + "-" + telefones.get(0);
+        return Nome + "-"  + Telefones.get(0);
     }
 }

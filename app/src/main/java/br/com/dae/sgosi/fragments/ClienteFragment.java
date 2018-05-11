@@ -88,11 +88,14 @@ public class ClienteFragment extends Fragment {
                 // pegar todos contatos do dispositivo
                 Contatos Contato = new Contatos(getContext());
                 // Pegar todos os contatos
-                listaCliente = Contato.getContatos(listViewCliente);
+              //  listaCliente = Contato.getContatos(listViewCliente);
+
+                listaContato = Contato.getContatos();
+                listaContato.size();
                 // Atualizar os clientes
-                clienteDAO.salvarListaCliente(listaCliente);
-                carregarCliente();
-                Snackbar.make(view, "Atualizando " + listaCliente.size() + " Contatos", Snackbar.LENGTH_LONG)
+                clienteDAO.salvarListaCliente(listaContato);
+              //  carregarCliente();
+                Snackbar.make(view, "Atualizando " + listaContato.size() + " Contatos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
