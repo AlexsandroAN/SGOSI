@@ -37,9 +37,13 @@ public class TipoServico implements Serializable {
         this.descricao = descricao;
     }
 
+    public TipoServico() {
+
+    }
+
     @Override
     public String toString() {
-        return nome.toString();
+        return nome;
     }
 }
 

@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
-
 import br.com.dae.sgosi.Util.Constantes;
 import br.com.dae.sgosi.entidade.TipoServico;
 
@@ -30,6 +28,30 @@ public class TipoServicoDAO extends SQLiteOpenHelper {
         query.append(" descricao TEXT(100))");
 
         db.execSQL(query.toString());
+
+        StringBuilder query1 = new StringBuilder();
+        query1.append("CREATE TABLE cliente (");
+        query1.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
+        query1.append(" nome TEXT(50) NOT NULL,");
+        query1.append(" descricao TEXT(100),");
+        query1.append(" endereco TEXT(100),");
+        query1.append(" email TEXT(20),");
+        query1.append(" telefone TEXT(20))");
+
+        db.execSQL(query1.toString());
+
+        StringBuilder queryTbOrdemServico = new StringBuilder();
+        queryTbOrdemServico.append("CREATE TABLE ordem_servico (");
+        queryTbOrdemServico.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
+        queryTbOrdemServico.append(" cliente  INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" tipoServico INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" status INTERGER NOT NULL,");
+        queryTbOrdemServico.append(" dataInicio INTERGER,");
+        queryTbOrdemServico.append(" dataFim INTERGER,");
+        queryTbOrdemServico.append(" descricaoInicio TEXT,");
+        queryTbOrdemServico.append(" descricaoFim TEXT)");
+
+        db.execSQL(queryTbOrdemServico.toString());
     }
 
     @Override
@@ -40,10 +62,8 @@ public class TipoServicoDAO extends SQLiteOpenHelper {
 
     public void salvarTipoServico(TipoServico tipoServico){
         ContentValues values = new ContentValues();
-
         values.put("nome", tipoServico.getNome());
         values.put("descricao", tipoServico.getDescricao());
-
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insert("tipo_servico", null, values);

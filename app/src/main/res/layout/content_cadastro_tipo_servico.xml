@@ -5,37 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="br.com.dae.sgosi.CadastroTipoServicoActivity"
+    tools:context="br.com.dae.sgosi.activity.CadastroTipoServicoActivity"
     tools:showIn="@layout/activity_cadastro_tipo_servico">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <EditText
-            android:id="@+id/edtNomeTipoServico"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lytTxtNome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Inserir nome"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edtDescricaoTipoServico"
+            <EditText
+                android:id="@+id/edtNomeTipoServico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome:"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lytTxtEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Inserir uma descrição"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtDescricaoTipoServico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Descrição:"
+                android:inputType="textPersonName"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btn_Poliform_TipoServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="btn" />
+            android:text="Salvar" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
