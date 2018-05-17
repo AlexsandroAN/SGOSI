@@ -6,14 +6,15 @@
     tools:context="br.com.dae.sgosi.fragments.OrdemServicoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Ordem de Serviço"-->
-        <!--android:textSize="24sp" />-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Fragment OS (Em desenvolvimento)"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"/>
 
-    <ListView
+   <!-- <ListView
         android:id="@+id/listViewOrdemServico"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -26,6 +27,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/branco"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/btn_star" />
+        app:srcCompat="@android:drawable/btn_star" />-->
 
 </FrameLayout>
