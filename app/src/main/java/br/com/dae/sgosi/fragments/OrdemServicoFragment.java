@@ -70,18 +70,22 @@ public class OrdemServicoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ordem_servico, container, false);
         ordemServicoDAO = new OrdemServicoDAO(getContext());
 
-        listaViewOrdemServico = (ListView) view.findViewById(R.id.listViewOrdemServico);
+        //retirar
+        //listaViewOrdemServico = (ListView) view.findViewById(R.id.listViewOrdemServico);
 
         // testeSalvarOrdemServico();
 
-        carregarOrdemServico();
+        //retirar
+        //carregarOrdemServico();
 
-        listaViewOrdemServico.setOnItemClickListener(clickListenerOrdemServio);
-        listaViewOrdemServico.setOnCreateContextMenuListener(contextMenuListener);
-        listaViewOrdemServico.setOnItemLongClickListener(longClickListener);
+        //retirar
+//        listaViewOrdemServico.setOnItemClickListener(clickListenerOrdemServio);
+//        listaViewOrdemServico.setOnCreateContextMenuListener(contextMenuListener);
+//        listaViewOrdemServico.setOnItemLongClickListener(longClickListener);
 
         // Chamar tela de cadastro Tipo de Serviço
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addOrdemServico);
+        //retirar
+      /*  FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addOrdemServico);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +93,7 @@ public class OrdemServicoFragment extends Fragment {
                 Snackbar.make(view, "Ordem de serviço nº " + ordemServico.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         return view;
     }
 

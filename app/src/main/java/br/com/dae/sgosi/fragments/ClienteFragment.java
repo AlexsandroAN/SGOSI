@@ -1,6 +1,7 @@
 package br.com.dae.sgosi.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroClienteActivity;
 import br.com.dae.sgosi.activity.CadastroTipoServicoActivity;
+import br.com.dae.sgosi.activity.MainActivity;
 import br.com.dae.sgosi.dao.ClienteDAO;
 import br.com.dae.sgosi.entidade.Cliente;
 import br.com.dae.sgosi.entidade.Contatos;
@@ -94,7 +98,8 @@ public class ClienteFragment extends Fragment {
                 listaContato.size();
                 // Atualizar os clientes
                 clienteDAO.salvarListaCliente(listaContato);
-              //  carregarCliente();
+                carregarCliente();
+
                 Snackbar.make(view, "Atualizando " + listaContato.size() + " Contatos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
