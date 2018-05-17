@@ -5,6 +5,7 @@ package br.com.dae.sgosi.entidade;
  */
 
 public class EntidadeTelefone {
+
     private String Telefone;
     public String getTelefone() {
         return Telefone;
@@ -17,7 +18,7 @@ public class EntidadeTelefone {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Telefone: " + Telefone;
+        return Telefone;
     }
 }
 
