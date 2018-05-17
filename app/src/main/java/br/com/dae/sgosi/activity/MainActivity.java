@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configurar objeto para o Fragmento
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frameConteudo, new OrdemServicoFragment());
+        transaction.replace(R.id.frameConteudo, new OrdemServicoFragment());
         transaction.commit();
 
         buttonCliente.setOnClickListener(new View.OnClickListener() {
