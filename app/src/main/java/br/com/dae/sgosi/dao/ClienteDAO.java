@@ -59,9 +59,9 @@ public class ClienteDAO extends SQLiteOpenHelper {
         for (EntidadeContatos contato: contatos){
             ContentValues values = new ContentValues();
             values.put("nome", contato.getNome());
-            values.put("descricao", contato.getNome());
-            values.put("endereco", contato.getNome());
-            values.put("email", contato.getNome());
+            values.put("descricao", "");
+            values.put("endereco", "");
+            values.put("email", "");
             values.put("telefone", contato.getTelefones().get(0).toString());
             SQLiteDatabase db = this.getWritableDatabase();
             db.insert("cliente", null, values);
