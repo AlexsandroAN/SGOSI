@@ -14,6 +14,7 @@ import android.widget.Toast;
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.dao.TipoServicoDAO;
+import br.com.dae.sgosi.entidade.OrdemServico;
 import br.com.dae.sgosi.entidade.TipoServico;
 import br.com.dae.sgosi.fragments.TipoServicoFragment;
 
@@ -73,8 +74,8 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                         tipoServicoDAO.close();
                         Toast.makeText(CadastroTipoServicoActivity.this, "Tipo de Serviço editado com sucesso!", Toast.LENGTH_LONG ).show();
                     }
-
-                    Intent i = new Intent(CadastroTipoServicoActivity.this, MainActivity.class);
+                    Intent i = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
+                    i.putExtra("tela", "cadastroTipoServicoActivity");
                     startActivity(i);
                     finish();
                 }
@@ -88,10 +89,10 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
             erro = true;
             edtNome.setError("Campo Nome é obrigatório!");
         }
-        if (tipoServico.getDescricao() == null || "".equals(tipoServico.getDescricao())) {
-            erro = true;
-            edtDescricao.setError("Campo Descrição é obrigatório!");
-        }
+//        if (tipoServico.getDescricao() == null || "".equals(tipoServico.getDescricao())) {
+//            erro = true;
+//            edtDescricao.setError("Campo Descrição é obrigatório!");
+//        }
         return erro;
     }
 
@@ -100,7 +101,8 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                Intent intent = new Intent(CadastroTipoServicoActivity.this, MainActivity.class);
+                Intent intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
+                intent.putExtra("tela", "cadastroTipoServicoActivity");
                 startActivity(intent);
                 break;
         }

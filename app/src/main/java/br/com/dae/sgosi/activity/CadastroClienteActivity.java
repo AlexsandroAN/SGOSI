@@ -21,7 +21,6 @@ public class CadastroClienteActivity extends AppCompatActivity {
     private Cliente editarCliente, cliente;
     private ClienteDAO clienteDAO;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,12 +77,8 @@ public class CadastroClienteActivity extends AppCompatActivity {
                         clienteDAO.close();
                         Toast.makeText(CadastroClienteActivity.this, "Cliente editado com sucesso!", Toast.LENGTH_LONG).show();
                     }
-
-//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.frameConteudo, new ClienteFragment());
-//                    transaction.commit();
-
                     Intent i = new Intent(CadastroClienteActivity.this, MainActivity.class);
+                    i.putExtra("tela", "cadastroClienteActivity");
                     startActivity(i);
                     finish();
                 }
@@ -110,6 +105,7 @@ public class CadastroClienteActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 Intent intent = new Intent(CadastroClienteActivity.this, MainActivity.class);
+                intent.putExtra("tela", "cadastroClienteActivity");
                 startActivity(intent);
                 break;
         }

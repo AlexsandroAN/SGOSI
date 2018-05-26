@@ -1,6 +1,7 @@
 package br.com.dae.sgosi.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 
 import br.com.dae.sgosi.R;
+import br.com.dae.sgosi.entidade.Cliente;
+import br.com.dae.sgosi.entidade.TipoServico;
 import br.com.dae.sgosi.fragments.ClienteFragment;
 import br.com.dae.sgosi.fragments.OrdemServicoFragment;
 import br.com.dae.sgosi.fragments.TipoServicoFragment;
@@ -24,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private OrdemServicoFragment ordemServicoFragment;
     private TipoServicoFragment tipoServicoFragment;
     private ViewPager viewPager;
-    private static final  int PERMISSION_CONTACT = 100;
+    private TipoServico tipoServico;
+    private Cliente cliente;
+    private String tela;
+    private static final int PERMISSION_CONTACT = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +63,23 @@ public class MainActivity extends AppCompatActivity {
         // Remover sombra da ActionBar
         getSupportActionBar().setElevation(0);
 
+        Intent intent = getIntent();
+        tela = intent.getStringExtra("tela");
+
         // Configurar objeto para o Fragmento
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameConteudo, new OrdemServicoFragment());
-        transaction.commit();
+        if (tela == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frameConteudo, new OrdemServicoFragment());
+            transaction.commit();
+        } else if (tela.equals("cadastroTipoServicoActivity")) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frameConteudo, new TipoServicoFragment());
+            transaction.commit();
+        } else if (tela.equals("cadastroClenteActivity")) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frameConteudo, new ClienteFragment());
+            transaction.commit();
+        }
 
         buttonCliente.setOnClickListener(new View.OnClickListener() {
             @Override

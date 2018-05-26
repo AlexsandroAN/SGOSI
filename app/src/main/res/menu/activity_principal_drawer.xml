@@ -26,7 +26,12 @@
                     android:id="@+id/nav_tipo_servico"
                     android:icon="@drawable/ic_menu_manage"
                     android:title="Tipo Serviço" />
+                <item
+                    android:id="@+id/nav_cliente"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Cliente" />
             </menu>
+
         </item>
 
     </group>

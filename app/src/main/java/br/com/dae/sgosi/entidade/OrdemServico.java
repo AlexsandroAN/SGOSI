@@ -10,11 +10,11 @@ public class OrdemServico implements Serializable {
 
     private int id;
 
-    private int cliente;
+    private Cliente cliente;
 
-    private int tipoServico;
+    private TipoServico tipoServico;
 
-    private int status;
+    private StatusOrdemServico status;
 
     private Date dataInicio;
 
@@ -32,27 +32,27 @@ public class OrdemServico implements Serializable {
         this.id = id;
     }
 
-    public int getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public int getTipoServico() {
+    public TipoServico getTipoServico() {
         return tipoServico;
     }
 
-    public void setTipoServico(int tipoServico) {
+    public void setTipoServico(TipoServico tipoServico) {
         this.tipoServico = tipoServico;
     }
 
-    public int getStatus() {
+    public StatusOrdemServico getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusOrdemServico status) {
         this.status = status;
     }
 
@@ -92,7 +92,12 @@ public class OrdemServico implements Serializable {
 
     @Override
     public String toString() {
-        return descricaoInicio;
+        return "{" +
+                "id=" + id +
+                ", cliente=" + cliente +
+                ", tipoServico=" + tipoServico +
+                ", status=" + status +
+                '}';
     }
 }
 

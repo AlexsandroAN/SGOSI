@@ -3,6 +3,9 @@ package br.com.dae.sgosi.entidade;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.dae.sgosi.activity.CadastroOrdemServicoActivity;
+import br.com.dae.sgosi.dao.ClienteDAO;
+
 /**
  * Created by 39091 on 11/07/2016.
  */
