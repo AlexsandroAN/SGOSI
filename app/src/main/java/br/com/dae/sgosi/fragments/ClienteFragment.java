@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,7 +37,7 @@ public class ClienteFragment extends Fragment {
     private EditText edtNome, edtDescricao, edtEndereco, edtEmail, edtTelefone;
     private ListView listaViewCliente;
     private ClienteDAO clienteDAO;
-    private List<Cliente> listaCliente;
+    private List<Cliente> listaCliente = new ArrayList<>();
     private List<EntidadeContatos> listaContato;
     private ArrayList<Cliente> listViewCliente;
     private Cliente cliente;
@@ -44,6 +45,7 @@ public class ClienteFragment extends Fragment {
     private int posicaoSelecionada;
     private View view;
     private Context context;
+    private RecyclerView recyclerView;
 
     public ClienteFragment() {
     }
