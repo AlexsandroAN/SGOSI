@@ -85,41 +85,40 @@ public class ClienteFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
 
         //evento de click
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(
-                        getContext(),
-                        recyclerView,
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                        getContext(), recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
                                 Cliente cliente = listViewCliente.get(position);
-                                Toast.makeText(
-                                        getContext(),
-                                        "Item pressionado: " + cliente.getNome(),
-                                        Toast.LENGTH_SHORT
-                                ).show();
+                                StringBuilder info = new StringBuilder();
+                                info.append("Nome: " + cliente.getNome());
+                                info.append("\nDescrição: " + cliente.getDescricao());
+                                info.append("\nEndereço: " + cliente.getEndereco());
+                                info.append("\nEmail: " + cliente.getEmail());
+                                info.append("\nTelefone: " + cliente.getTelefone());
+                                Util.showMsgAlertOK(getActivity(), "Info", info.toString(), TipoMsg.INFO);
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
                                 Cliente cliente = listViewCliente.get(position);
-                                Toast.makeText(
-                                        getContext(),
-                                        "Click longo: " + cliente.getTelefone(),
-                                        Toast.LENGTH_SHORT
-                                ).show();
+                                AdapterView.OnItemClickListener contextMenuListener;
+
                             }
 
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                             }
+
+
                         }
                 )
         );
 
 //        listaViewCliente.setOnItemClickListener(clickListenerCliente);
-//        listaViewCliente.setOnCreateContextMenuListener(contextMenuListener);
+    //    listaViewCliente.setOnCreateContextMenuListener(contextMenuListener);
 //        listaViewCliente.setOnItemLongClickListener(longClickListener);
 
         // Chamar tela de cadastro Cliente
