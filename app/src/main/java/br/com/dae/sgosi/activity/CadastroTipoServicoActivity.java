@@ -89,10 +89,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
             erro = true;
             edtNome.setError("Campo Nome é obrigatório!");
         }
-//        if (tipoServico.getDescricao() == null || "".equals(tipoServico.getDescricao())) {
-//            erro = true;
-//            edtDescricao.setError("Campo Descrição é obrigatório!");
-//        }
         return erro;
     }
 

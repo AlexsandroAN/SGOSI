@@ -5,16 +5,6 @@
     android:layout_height="match_parent"
     tools:context="br.com.dae.sgosi.fragments.TipoServicoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<TextView-->
-        <!--android:id="@+id/textoTipoServico"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Tipo de serviço"-->
-        <!--android:textSize="24sp" />-->
-
-
     <ListView
         android:id="@+id/listViewTipoServico"
         android:layout_width="match_parent"
