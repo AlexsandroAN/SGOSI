@@ -1,6 +1,7 @@
 package br.com.dae.sgosi.fragments;
 
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,9 +9,13 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +34,14 @@ import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroTipoServicoActivity;
+import br.com.dae.sgosi.activity.PrincipalActivity;
 import br.com.dae.sgosi.dao.TipoServicoDAO;
 import br.com.dae.sgosi.entidade.TipoServico;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TipoServicoFragment extends android.support.v4.app.Fragment {
+public class TipoServicoFragment extends android.support.v4.app.Fragment{
 
     private EditText edtNome, edtDescricao;
     private ListView listaViewTipoServico;
@@ -75,7 +81,7 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
         listaViewTipoServico.setOnItemLongClickListener(longClickListener);
 
         // Chamar tela de cadastro Tipo de Serviço
-        FloatingActionButton fab =  (FloatingActionButton) view.findViewById(R.id.addTipoServico);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addTipoServico);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,7 +164,7 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
                                 tipoServicoDAO.deletarTipoServico(listaTipoServicos.get(posicaoSelecionada));
                                 setArrayAdapterTipoServico();
                                 adapter.notifyDataSetChanged();
-                                Toast.makeText(getContext(), "Tipo Serviço deletado com sucesso!", Toast.LENGTH_LONG ).show();
+                                Toast.makeText(getContext(), "Tipo Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
                             }
                         });
                 break;
@@ -166,5 +172,42 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment {
         return true;
     }
 
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_search, menu);
+//
+//        SearchManager searchManager = (SearchManager)getContext().getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView =
+//                (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+//    }
 
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        menu.clear();
+//        inflater.inflate(R.menu.menu_search, menu);
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        SearchView searchView = new SearchView(((PrincipalActivity) context).getSupportActionBar().getThemedContext());
+//        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+//        MenuItemCompat.setActionView(item, searchView);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//        searchView.setOnClickListener(new View.OnClickListener() {
+//                                          @Override
+//                                          public void onClick(View v) {
+//
+//                                          }
+//                                      }
+//        );
+//    }
 }

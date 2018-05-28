@@ -86,7 +86,7 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Editar Ordem Servico");
             ordemServico.setId(editarOrdemServico.getId());
         } else {
-            getSupportActionBar().setTitle("Adicionar Ordem Serviço");
+            getSupportActionBar().setTitle("Adicionar Ordem de Serviço");
         }
 
         this.initClientes();

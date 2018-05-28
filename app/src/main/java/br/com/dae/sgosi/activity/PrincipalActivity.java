@@ -4,26 +4,23 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.fragments.ClienteFragment;
-import br.com.dae.sgosi.fragments.ModeloFragment;
-import br.com.dae.sgosi.fragments.ListaTipoServicoFragment;
+import br.com.dae.sgosi.fragments.PrincipalFragment;
 import br.com.dae.sgosi.fragments.OrdemServicoFragment;
 import br.com.dae.sgosi.fragments.TipoServicoFragment;
 
@@ -96,9 +93,29 @@ public class PrincipalActivity extends AppCompatActivity
         }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.principal, menu);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_principal) {
+            setTitle("Principal");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
+        } else if (id == R.id.nav_ordem_servico) {
+            setTitle("Ordens de Serviços");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
+        } else if (id == R.id.nav_tipo_servico) {
+            setTitle("Tipos de Serviços");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new TipoServicoFragment()).commit();
+        } else if (id == R.id.nav_cliente) {
+            setTitle("Clientes");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
+        } else if (id == R.id.nav_compartilhar) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -113,30 +130,33 @@ public class PrincipalActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_search, menu);
+//        return true;
+//    }
 
-        if (id == R.id.nav_principal) {
-            setTitle("Principal");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new ModeloFragment()).commit();
-
-        } else if (id == R.id.nav_ordem_servico) {
-            setTitle("Ordem de Servico");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
-        } else if (id == R.id.nav_tipo_servico) {
-            setTitle("Tipo de Serviço");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new TipoServicoFragment()).commit();
-        } else if (id == R.id.nav_cliente) {
-            setTitle("Cliente");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
-        } else if (id == R.id.nav_compartilhar) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_search, menu);
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView)item.getActionView();
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//
+//
+//
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 }

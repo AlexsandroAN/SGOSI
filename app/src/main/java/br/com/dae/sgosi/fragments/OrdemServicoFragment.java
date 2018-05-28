@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroClienteActivity;
+import br.com.dae.sgosi.activity.CadastroOrdemServicoActivity;
 import br.com.dae.sgosi.adapter.AdapterOrdemServico;
 import br.com.dae.sgosi.dao.ClienteDAO;
 import br.com.dae.sgosi.dao.OrdemServicoDAO;
@@ -50,6 +52,7 @@ public class OrdemServicoFragment extends Fragment {
     private ClienteDAO clienteDAO;
     private TipoServicoDAO tipoServicoDAO;
     private RecyclerView recyclerView;
+    private AdapterOrdemServico adapterOrdemServico;
 
     public OrdemServicoFragment() {
     }
@@ -64,39 +67,30 @@ public class OrdemServicoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_main1, container, false);
-
-        ordemServicoDAO = new OrdemServicoDAO(getContext());
-        listaViewOrdemServico = (ListView) view.findViewById(R.id.listViewOrdemServico);
+        view = inflater.inflate(R.layout.fragment_main_adapter, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         carregarOrdemServico();
-
-        //Configurarn adpater
-        AdapterOrdemServico adapter = new AdapterOrdemServico( listViewOrdemServico );
 
         //Configurar Recycleview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration( new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
-        recyclerView.setAdapter( adapter );
-
-      //  carregarOrdemServico();
 
        // listaViewOrdemServico.setOnItemClickListener(clickListenerOrdemServio);
-        //listaViewOrdemServico.setOnCreateContextMenuListener(contextMenuListener);
+       // listaViewOrdemServico.setOnCreateContextMenuListener(contextMenuListener);
        // listaViewOrdemServico.setOnItemLongClickListener(longClickListener);
 
-//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addOrdemServico);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), CadastroOrdemServicoActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.novo);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CadastroOrdemServicoActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -107,15 +101,13 @@ public class OrdemServicoFragment extends Fragment {
         listViewOrdemServico = ordemServicoDAO.getLista();
         ordemServicoDAO.close();
 
-      //  if (listViewOrdemServico != null) {
+        if (listViewOrdemServico != null) {
             //adapter = new ArrayAdapter<OrdemServico>(getContext(), android.R.layout.simple_list_item_1, listViewOrdemServico);
             //listaViewOrdemServico.setAdapter(adapter);
-           // lineAdapter = new LineAdapter(listViewOrdemServico);
-           // recyclerView.setAdapter(lineAdapter);
-
-       //}
-       // adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1);
-       // setArrayAdapterOrdemServico();
+            //Configurar adpater
+            adapterOrdemServico = new AdapterOrdemServico( listViewOrdemServico );
+            recyclerView.setAdapter( adapterOrdemServico );
+       }
     }
 
     private void setArrayAdapterOrdemServico() {

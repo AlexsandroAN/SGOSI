@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import br.com.dae.sgosi.R;
 
-public class ModeloFragment extends Fragment {
+public class PrincipalFragment extends Fragment {
 
     View view;
 
-    public ModeloFragment() {
+    public PrincipalFragment() {
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ModeloFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_modelo, container, false);
+        view =  inflater.inflate(R.layout.fragment_principal, container, false);
     return  view;
     }
 }
