@@ -15,11 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.dao.ClienteDAO;
+import br.com.dae.sgosi.dao.OrdemServicoDAO;
 import br.com.dae.sgosi.entidade.Cliente;
+import br.com.dae.sgosi.entidade.OrdemServico;
 import br.com.dae.sgosi.entidade.TipoServico;
 import br.com.dae.sgosi.fragments.ClienteFragment;
 
@@ -126,12 +130,29 @@ public class CadastroClienteActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_remove:
                 if (editarCliente != null) {
-                    clienteDAO.deletarCliente(editarCliente);
-                    clienteDAO.close();
-                    Toast.makeText(CadastroClienteActivity.this, "Cliente deletado com sucesso!", Toast.LENGTH_LONG).show();
-                    intent = new Intent(CadastroClienteActivity.this, PrincipalActivity.class);
-                    intent.putExtra("tela", "cadastroClienteActivity");
-                    startActivity(intent);
+
+                    boolean excluirCliente = true;
+                    OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO(CadastroClienteActivity.this);
+                    List<OrdemServico> lista;
+                    lista = ordemServicoDAO.getLista();
+
+                    for (OrdemServico os : lista) {
+                        if (os.getCliente().getId() == editarCliente.getId()) {
+                            excluirCliente = false;
+                        }
+                    }
+
+                    if (excluirCliente) {
+                        clienteDAO.deletarCliente(editarCliente);
+                        clienteDAO.close();
+                        Toast.makeText(CadastroClienteActivity.this, "Cliente deletado com sucesso!", Toast.LENGTH_LONG).show();
+                        intent = new Intent(CadastroClienteActivity.this, PrincipalActivity.class);
+                        intent.putExtra("tela", "cadastroClienteActivity");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(CadastroClienteActivity.this, "Cliente não pode ser deletado!", Toast.LENGTH_LONG).show();
+                    }
+
                     return true;
                 }
             case R.id.menu_salvar:

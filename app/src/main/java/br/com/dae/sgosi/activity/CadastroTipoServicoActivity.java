@@ -14,9 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
+import br.com.dae.sgosi.dao.OrdemServicoDAO;
 import br.com.dae.sgosi.dao.TipoServicoDAO;
 import br.com.dae.sgosi.entidade.OrdemServico;
 import br.com.dae.sgosi.entidade.TipoServico;
@@ -109,6 +113,8 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -122,12 +128,29 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_remove:
                 if(editarTipoServico != null){
-                    tipoServicoDAO.deletarTipoServico(editarTipoServico);
-                    tipoServicoDAO.close();
-                    Toast.makeText(CadastroTipoServicoActivity.this, "Tipo Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
-                    intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
-                    intent.putExtra("tela", "cadastroTipoServicoActivity");
-                    startActivity(intent);
+
+                    boolean excluirTipoServico = true;
+                    OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO(CadastroTipoServicoActivity.this);
+                    List<OrdemServico> lista;
+                    lista = ordemServicoDAO.getLista();
+
+                    for(OrdemServico os: lista){
+                        if(os.getTipoServico().getId() == editarTipoServico.getId()){
+                            excluirTipoServico = false;
+                        }
+                    }
+
+                    if(excluirTipoServico){
+                        tipoServicoDAO.deletarTipoServico(editarTipoServico);
+                        tipoServicoDAO.close();
+                        Toast.makeText(CadastroTipoServicoActivity.this, "Tipo Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
+                        intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
+                        intent.putExtra("tela", "cadastroTipoServicoActivity");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(CadastroTipoServicoActivity.this, "Tipo Serviço não pode ser deletado!", Toast.LENGTH_LONG).show();
+                    }
+
                     return true;
                 }
 
