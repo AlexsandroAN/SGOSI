@@ -1,7 +1,5 @@
 package br.com.dae.sgosi.activity;
 
-import android.content.Context;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,29 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import android.widget.DatePicker;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-
-import javax.microedition.khronos.egl.EGLDisplay;
-
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.dao.ClienteDAO;
 import br.com.dae.sgosi.dao.OrdemServicoDAO;
@@ -45,8 +31,6 @@ import br.com.dae.sgosi.fragments.DatePickerFragment;
 
 public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
-    private Date dataInicio, dataFim;
-    private Button btnPoliform;
     private OrdemServico editarOrdemServico, ordemServico;
     private OrdemServicoDAO ordemServicoDAO;
     private Spinner spnStatus, spnClientes, spnTipoServco;
@@ -83,15 +67,11 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         edtDataFim = (EditText) findViewById(R.id.edtDataFim);
         edtDescInicio = (EditText) findViewById(R.id.edtDescInicio);
         edtDescFim = (EditText) findViewById(R.id.edtDescFim);
-        // btnPoliform = (Button) findViewById(R.id.btn_Poliform_OrdemServico);
 
         getSupportActionBar().setTitle("Ordem de Serviço");
 
         if (editarOrdemServico != null) {
             ordemServico.setId(editarOrdemServico.getId());
-
-           // spnClientes.setAdapter();
-
 
             edtDataInicio.setText(dateFormat.format(editarOrdemServico.getDataInicio()));
             edtDataFim.setText(dateFormat.format(editarOrdemServico.getDataFim()));
@@ -102,7 +82,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         this.initClientes();
         this.initStatus();
         this.initTipoServico();
-
 //        btnPoliform.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -120,20 +99,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 //        });
     }
 
-    public Cliente getCliente(int pos) {
-        cliente = new Cliente();
-        clienteDAO = new ClienteDAO(CadastroOrdemServicoActivity.this);
-        listaCliente = clienteDAO.getLista();
-
-        for (Cliente cliente : listaCliente) {
-            if (cliente.getId() == pos) {
-                return cliente;
-            }
-        }
-        return null;
-    }
-
-
     private OrdemServico montarOrdemServico() {
         try {
 
@@ -143,12 +108,12 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
             cliente = new Cliente();
             clienteDAO = new ClienteDAO(CadastroOrdemServicoActivity.this);
-            cliente = clienteDAO.consultarClientePorId(spnClientes.getSelectedItemPosition() + 1);
+            cliente = getCliente(spnClientes.getSelectedItemPosition());
             ordemServico.setCliente(cliente);
 
             tipoServico = new TipoServico();
             tipoServicoDAO = new TipoServicoDAO(CadastroOrdemServicoActivity.this);
-            tipoServico = tipoServicoDAO.consultarTipoServicoPorId(spnTipoServco.getSelectedItemPosition() + 1);
+            tipoServico = getTipoServico(spnTipoServco.getSelectedItemPosition());
             ordemServico.setTipoServico(tipoServico);
 
             StatusOrdemServico status = StatusOrdemServico.getStatusOS((spnStatus.getSelectedItemPosition()));
@@ -179,8 +144,19 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, clientes);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnClientes.setAdapter(adapter);
-        if(editarOrdemServico != null){
-            spnClientes.setSelection(editarOrdemServico.getCliente().getId() - 1);
+
+        int posicaoAtual = 0;
+        for (int i = 0; i < listaCliente.size(); i++) {
+            listaCliente.get(i).setPosicaoAtual(posicaoAtual);
+            posicaoAtual++;
+        }
+
+        if (editarOrdemServico != null) {
+            for (int i = 0; i < listaCliente.size(); i++) {
+                if(listaCliente.get(i).getId() == editarOrdemServico.getCliente().getId()){
+                    spnClientes.setSelection(listaCliente.get(i).getPosicaoAtual());
+                }
+            }
         }
     }
 
@@ -195,10 +171,40 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, tipoServicos);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnTipoServco.setAdapter(adapter);
-        if(editarOrdemServico != null){
-            spnTipoServco.setSelection(editarOrdemServico.getTipoServico().getId() - 1);
+
+        int posicaoAtual = 0;
+        for (int i = 0; i < listaTipoServico.size(); i++) {
+            listaTipoServico.get(i).setPosicaoAtual(posicaoAtual);
+            posicaoAtual++;
+        }
+
+        if (editarOrdemServico != null) {
+            for (int i = 0; i < listaTipoServico.size(); i++) {
+               if(listaTipoServico.get(i).getId() == editarOrdemServico.getTipoServico().getId()){
+                   spnTipoServco.setSelection(listaTipoServico.get(i).getPosicaoAtual());
+               }
+            }
         }
     }
+
+    public TipoServico getTipoServico(int pos) {
+        for (TipoServico ts : listaTipoServico) {
+            if (ts.getPosicaoAtual() == pos) {
+                return ts;
+            }
+        }
+        return null;
+    }
+
+    public Cliente getCliente(int pos) {
+        for (Cliente c : listaCliente) {
+            if (c.getPosicaoAtual() == pos) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 
     private void initStatus() {
         ArrayList<String> status = new ArrayList<>();
@@ -208,7 +214,7 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, status);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnStatus.setAdapter(adapter);
-        if(editarOrdemServico != null){
+        if (editarOrdemServico != null) {
             spnStatus.setSelection(editarOrdemServico.getStatus().ordinal());
         }
     }

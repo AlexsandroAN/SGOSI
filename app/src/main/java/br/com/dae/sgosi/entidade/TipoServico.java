@@ -13,6 +13,8 @@ public class TipoServico implements Serializable {
 
     private String descricao;
 
+    transient int posicaoAtual;
+
     public int getId() {
         return id;
     }
@@ -35,6 +37,14 @@ public class TipoServico implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public int getPosicaoAtual() {
+        return posicaoAtual;
+    }
+
+    public void setPosicaoAtual(int posicaoAtual) {
+        this.posicaoAtual = posicaoAtual;
     }
 
     public TipoServico() {

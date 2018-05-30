@@ -23,6 +23,8 @@ public class Cliente implements Serializable {
 
     private String telefone;
 
+    transient int posicaoAtual;
+
     public int getId() {
         return id;
     }
@@ -69,6 +71,14 @@ public class Cliente implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public int getPosicaoAtual() {
+        return posicaoAtual;
+    }
+
+    public void setPosicaoAtual(int posicaoAtual) {
+        this.posicaoAtual = posicaoAtual;
     }
 
     //Metodo sobreescrito para que não aparece o nome do componente
