@@ -72,13 +72,16 @@ public class PrincipalActivity extends AppCompatActivity
 
         // Configurar objeto para o Fragmento
         if (tela == null) {
-            setTitle("Ordem de Servico");
+            setTitle("Ordens de Serviços");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
+        } else if (tela.equals("cadastroOrdemServicoActivity")) {
+            setTitle("Ordens de Serviços");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
         } else if (tela.equals("cadastroTipoServicoActivity")) {
-            setTitle("Tipo de Serviço");
+            setTitle("Tipos de Serviços");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new TipoServicoFragment()).commit();
-        } else if (tela.equals("cadastroClenteActivity")) {
-            setTitle("Cliente");
+        } else if (tela.equals("cadastroClienteActivity")) {
+            setTitle("Clientes");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
         }
     }
@@ -98,10 +101,11 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_principal) {
-            setTitle("Principal");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
-        } else if (id == R.id.nav_ordem_servico) {
+//        if (id == R.id.nav_principal) {
+//            setTitle("Principal");
+//            fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
+//        } else
+        if (id == R.id.nav_ordem_servico) {
             setTitle("Ordens de Serviços");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
         } else if (id == R.id.nav_tipo_servico) {
@@ -110,25 +114,26 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_cliente) {
             setTitle("Clientes");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
-        } else if (id == R.id.nav_compartilhar) {
-
         }
+//        else if (id == R.id.nav_compartilhar) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_sair) {
-            // Sair do aplicativo
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_sair) {
+//            // Sair do aplicativo
+//            finish();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {

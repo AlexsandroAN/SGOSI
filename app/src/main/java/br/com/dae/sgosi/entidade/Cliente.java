@@ -76,7 +76,7 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return nome + "-" + telefone;
+        return nome;
     }
 }
 

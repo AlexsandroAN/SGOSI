@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroClienteActivity;
 import br.com.dae.sgosi.activity.CadastroOrdemServicoActivity;
 import br.com.dae.sgosi.adapter.AdapterOrdemServico;
+import br.com.dae.sgosi.adapter.RecyclerItemClickListener;
 import br.com.dae.sgosi.dao.ClienteDAO;
 import br.com.dae.sgosi.dao.OrdemServicoDAO;
 import br.com.dae.sgosi.dao.TipoServicoDAO;
@@ -53,6 +55,7 @@ public class OrdemServicoFragment extends Fragment {
     private TipoServicoDAO tipoServicoDAO;
     private RecyclerView recyclerView;
     private AdapterOrdemServico adapterOrdemServico;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public OrdemServicoFragment() {
     }
@@ -79,9 +82,42 @@ public class OrdemServicoFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration( new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
 
-       // listaViewOrdemServico.setOnItemClickListener(clickListenerOrdemServio);
-       // listaViewOrdemServico.setOnCreateContextMenuListener(contextMenuListener);
-       // listaViewOrdemServico.setOnItemLongClickListener(longClickListener);
+        recyclerView.setOnCreateContextMenuListener(contextMenuListener);
+
+        //evento de click
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                        getContext(), recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                OrdemServico ordemServico = listViewOrdemServico.get(position);
+                                StringBuilder info = new StringBuilder();
+                                info.append("Cliente: " + ordemServico.getCliente().getNome());
+                                info.append("\nTipo de Serviço: " + ordemServico.getTipoServico().getNome());
+                                info.append("\nStatus: " + ordemServico.getStatus().getDescrisao());
+                                info.append("\nData Inicio: " +  dateFormat.format(ordemServico.getDataInicio()));
+                                info.append("\nData Fim: " + dateFormat.format(ordemServico.getDataFim()));
+                                info.append("\nDescrição Inicio: " + ordemServico.getDescricaoInicio());
+                                info.append("\nDescrição Fim: " + ordemServico.getDescricaoFim());
+                                Util.showMsgAlertOK(getActivity(), "Info", info.toString(), TipoMsg.INFO);
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                ordemServicoDAO = new OrdemServicoDAO(getContext());
+                                OrdemServico ordemServico = listViewOrdemServico.get(position);
+                                Intent i = new Intent(getContext(), CadastroOrdemServicoActivity.class);
+                                i.putExtra("ordem_servico-escolhido", ordemServico);
+                                startActivity(i);
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }
+                )
+        );
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.novo);
         fab.setOnClickListener(new View.OnClickListener() {

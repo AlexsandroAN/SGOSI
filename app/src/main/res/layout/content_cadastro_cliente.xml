@@ -24,7 +24,7 @@
                 android:id="@+id/edtNomeCliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome:"
+                android:hint="Nome*"
                 android:inputType="text"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Descrição:"
+                android:hint="Descrição"
                 android:inputType="textPersonName"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Endereco:"
+                android:hint="Endereco"
                 android:inputType="textPersonName"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Email:"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
@@ -84,16 +84,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Telefone:"
+                android:hint="Telefone"
                 android:inputType="textEmailAddress"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_Poliform_Cliente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Salvar" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_Poliform_Cliente"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Salvar" />-->
     </LinearLayout>
 
 

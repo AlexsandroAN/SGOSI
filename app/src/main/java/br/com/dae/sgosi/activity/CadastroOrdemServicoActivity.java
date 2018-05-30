@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.microedition.khronos.egl.EGLDisplay;
 
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.dao.ClienteDAO;
@@ -54,9 +57,8 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
     private TipoServico tipoServico;
     private ClienteDAO clienteDAO;
     private TipoServicoDAO tipoServicoDAO;
-    private String nome;
-    private int idPosicao;
-    private String[] id;
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,12 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        ordemServico = new OrdemServico();
+        ordemServicoDAO = new OrdemServicoDAO(CadastroOrdemServicoActivity.this);
+
+        Intent intent = getIntent();
+        editarOrdemServico = (OrdemServico) intent.getSerializableExtra("ordem_servico-escolhido");
+
         spnClientes = (Spinner) findViewById(R.id.spnClientes);
         spnTipoServco = (Spinner) findViewById(R.id.spnTipoServico);
         spnStatus = (Spinner) findViewById(R.id.spnStatus);
@@ -75,39 +83,41 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         edtDataFim = (EditText) findViewById(R.id.edtDataFim);
         edtDescInicio = (EditText) findViewById(R.id.edtDescInicio);
         edtDescFim = (EditText) findViewById(R.id.edtDescFim);
-        btnPoliform = (Button) findViewById(R.id.btn_Poliform_OrdemServico);
+        // btnPoliform = (Button) findViewById(R.id.btn_Poliform_OrdemServico);
 
-//        edtDataInicio.setText("01/01/2018");
-//        edtDataFim.setText("20/02/2018");
-//        edtDescInicio.setText("descrição inicio");
-//        edtDescFim.setText("descrição fim");
+        getSupportActionBar().setTitle("Ordem de Serviço");
 
         if (editarOrdemServico != null) {
-            getSupportActionBar().setTitle("Editar Ordem Servico");
             ordemServico.setId(editarOrdemServico.getId());
-        } else {
-            getSupportActionBar().setTitle("Adicionar Ordem de Serviço");
+
+           // spnClientes.setAdapter();
+
+
+            edtDataInicio.setText(dateFormat.format(editarOrdemServico.getDataInicio()));
+            edtDataFim.setText(dateFormat.format(editarOrdemServico.getDataFim()));
+            edtDescInicio.setText(editarOrdemServico.getDescricaoInicio().toString());
+            edtDescFim.setText(editarOrdemServico.getDescricaoFim().toString());
         }
 
         this.initClientes();
         this.initStatus();
         this.initTipoServico();
 
-        btnPoliform.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ordemServicoDAO = new OrdemServicoDAO(CadastroOrdemServicoActivity.this);
-                ordemServico = montarOrdemServico();
-                ordemServicoDAO.salvarOrdemServico(ordemServico);
-                ordemServicoDAO.close();
-
-                Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de servico salvo com sucesso", Toast.LENGTH_LONG).show();
-
-                Intent i = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+//        btnPoliform.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ordemServicoDAO = new OrdemServicoDAO(CadastroOrdemServicoActivity.this);
+//                ordemServico = montarOrdemServico();
+//                ordemServicoDAO.salvarOrdemServico(ordemServico);
+//                ordemServicoDAO.close();
+//
+//                Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de servico salvo com sucesso", Toast.LENGTH_LONG).show();
+//
+//                Intent i = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
+//                startActivity(i);
+//                finish();
+//            }
+//        });
     }
 
     public Cliente getCliente(int pos) {
@@ -124,14 +134,16 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
     }
 
 
-
     private OrdemServico montarOrdemServico() {
         try {
-            ordemServico = new OrdemServico();
+
+            if (editarOrdemServico == null) {
+                ordemServico = new OrdemServico();
+            }
 
             cliente = new Cliente();
             clienteDAO = new ClienteDAO(CadastroOrdemServicoActivity.this);
-            cliente = clienteDAO.consultarClientePorId(spnClientes.getSelectedItemPosition()+1);
+            cliente = clienteDAO.consultarClientePorId(spnClientes.getSelectedItemPosition() + 1);
             ordemServico.setCliente(cliente);
 
             tipoServico = new TipoServico();
@@ -142,8 +154,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
             StatusOrdemServico status = StatusOrdemServico.getStatusOS((spnStatus.getSelectedItemPosition()));
             ordemServico.setStatus(status);
 
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
             Date dtInicio = dateFormat.parse(edtDataInicio.getText().toString());
             ordemServico.setDataInicio(dtInicio);
 
@@ -152,11 +162,9 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
             ordemServico.setDescricaoInicio(edtDescInicio.getText().toString());
             ordemServico.setDescricaoFim(edtDescFim.getText().toString());
-
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
-
         return ordemServico;
     }
 
@@ -171,6 +179,9 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, clientes);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnClientes.setAdapter(adapter);
+        if(editarOrdemServico != null){
+            spnClientes.setSelection(editarOrdemServico.getCliente().getId() - 1);
+        }
     }
 
     private void initTipoServico() {
@@ -184,6 +195,9 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, tipoServicos);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnTipoServco.setAdapter(adapter);
+        if(editarOrdemServico != null){
+            spnTipoServco.setSelection(editarOrdemServico.getTipoServico().getId() - 1);
+        }
     }
 
     private void initStatus() {
@@ -194,6 +208,9 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(CadastroOrdemServicoActivity.this, android.R.layout.simple_spinner_item, status);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnStatus.setAdapter(adapter);
+        if(editarOrdemServico != null){
+            spnStatus.setSelection(editarOrdemServico.getStatus().ordinal());
+        }
     }
 
     public void setDataInicio(View view) {
@@ -245,26 +262,78 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
     private boolean validarOrdemSecrvio(OrdemServico ordemServico) {
         boolean erro = false;
-//        if (ordemServico.getNome() == null || "".equals(ordemServico.getNome())) {
-//            erro = true;
-//            edtNome.setError("Campo Nome é obrigatório!");
-//        }
-//        if (ordemServico.getDescricao() == null || "".equals(ordemServico.getDescricao())) {
-//            erro = true;
-//            edtDescricao.setError("Campo Descrição é obrigatório!");
-//        }
+        if (edtDataInicio.getText().length() == 0) {
+            erro = true;
+            edtDataInicio.setError("Campo Data Inicio é obrigatório!");
+        }
+
+        if (edtDataFim.getText().length() == 0) {
+            erro = true;
+            edtDataFim.setError("Campo Data Fim é obrigatório!");
+        }
         return erro;
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_remove);
+
+        if (editarOrdemServico != null) {
+            item.setEnabled(true);
+            item.getIcon().setAlpha(255);
+        } else {
+            // disabled
+            item.setEnabled(false);
+            item.getIcon().setAlpha(130);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
-                Intent intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
+                intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
+                intent.putExtra("tela", "cadastroOrdemServicoActivity");
                 startActivity(intent);
-                break;
+                return true;
+            case R.id.menu_remove:
+                if (editarOrdemServico != null) {
+                    ordemServicoDAO.deletarOrdemServico(editarOrdemServico);
+                    ordemServicoDAO.close();
+                    Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
+                    intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
+                    intent.putExtra("tela", "cadastroOrdemServicoActivity");
+                    startActivity(intent);
+
+                    return true;
+                }
+            case R.id.menu_salvar:
+
+                if (!validarOrdemSecrvio(ordemServico)) {
+                    ordemServicoDAO = new OrdemServicoDAO(CadastroOrdemServicoActivity.this);
+                    ordemServico = montarOrdemServico();
+
+                    if (editarOrdemServico == null) {
+                        ordemServicoDAO.salvarOrdemServico(ordemServico);
+                    } else {
+                        ordemServicoDAO.alterarOrdemServico(ordemServico);
+                    }
+                    ordemServicoDAO.close();
+                    Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de serviço salvo com sucesso", Toast.LENGTH_LONG).show();
+
+                    intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
+                    intent.putExtra("tela", "cadastroOrdemServicoActivity");
+                    startActivity(intent);
+                    return true;
+                }
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 }

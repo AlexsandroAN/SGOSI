@@ -8,43 +8,14 @@
     tools:context="br.com.dae.sgosi.activity.CadastroOrdemServicoActivity"
     tools:showIn="@layout/activity_cadastro_ordem_servico">
 
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingBottom="@dimen/padding_bottom"-->
-        <!--android:paddingLeft="@dimen/padding_left"-->
-        <!--android:paddingRight="@dimen/padding_right"-->
-        <!--android:paddingTop="@dimen/padding_top"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="0dp">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/txtNumeroOS"-->
-            <!--style="@style/Txt_Estilo"-->
-            <!--android:layout_width="70dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Número:" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/numeroOS"-->
-            <!--style="@style/Txt_Estilo"-->
-            <!--android:layout_width="73dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/padding_bottom"
-        android:paddingLeft="@dimen/padding_left"
-        android:paddingRight="@dimen/padding_right"
-        android:paddingTop="@dimen/padding_top">
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/lytTxtCliente"
@@ -82,44 +53,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/lytTxtDescInicio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edtDescInicio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descriçção Fim:"
-                android:inputType="text"
-                android:singleLine="true" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/lytTxtNDescFim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edtDescFim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descrição Fim:"
-                android:inputType="text"
-                android:singleLine="true" />
-        </android.support.design.widget.TextInputLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnDataInicio"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="setDataInicio"
@@ -136,13 +79,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnDataFim"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="setDataFim"
@@ -156,43 +99,37 @@
                 android:enabled="false" />
         </LinearLayout>
 
-
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:id="@+id/lytTxtNome"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/edtNomeTipoServico"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:hint="Nome:"-->
-                <!--android:inputType="text"-->
-                <!--android:singleLine="true" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:id="@+id/lytTxtEmail"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/edtDescricaoTipoServico"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Descrição:"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:singleLine="true" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-
-        <Button
-            android:id="@+id/btn_Poliform_OrdemServico"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lytTxtDescInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salvar" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edtDescInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descrição do Início"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lytTxtNDescFim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edtDescFim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descrição do Fim"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

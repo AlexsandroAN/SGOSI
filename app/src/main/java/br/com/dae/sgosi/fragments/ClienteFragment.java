@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dae.sgosi.R;
-import br.com.dae.sgosi.RecyclerItemClickListener;
+import br.com.dae.sgosi.adapter.RecyclerItemClickListener;
 import br.com.dae.sgosi.Util.TipoMsg;
 import br.com.dae.sgosi.Util.Util;
 import br.com.dae.sgosi.activity.CadastroClienteActivity;
@@ -49,7 +47,7 @@ public class ClienteFragment extends Fragment {
     private List<EntidadeContatos> listaContato;
     private ArrayList<Cliente> listViewCliente;
     private Cliente cliente;
-    private ArrayAdapter adapter;
+    public ArrayAdapter adapter;
     private int posicaoSelecionada;
     private View view;
     private Context context;
@@ -73,9 +71,6 @@ public class ClienteFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        //listaViewCliente = (ListView) view.findViewById(R.id.listViewCliente);
-        //List ListaContatos = new ArrayList();
-
         carregarCliente();
 
         //Configurar Recycleview
@@ -83,6 +78,8 @@ public class ClienteFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
+
+        recyclerView.setOnCreateContextMenuListener(contextMenuListener);
 
         //evento de click
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
@@ -102,24 +99,20 @@ public class ClienteFragment extends Fragment {
 
                             @Override
                             public void onLongItemClick(View view, int position) {
+                                clienteDAO = new ClienteDAO(getContext());
                                 Cliente cliente = listViewCliente.get(position);
-                                AdapterView.OnItemClickListener contextMenuListener;
-
+                                Intent i = new Intent(getContext(), CadastroClienteActivity.class);
+                                i.putExtra("cliente-escolhido", cliente);
+                                startActivity(i);
                             }
 
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                             }
-
-
                         }
                 )
         );
-
-//        listaViewCliente.setOnItemClickListener(clickListenerCliente);
-    //    listaViewCliente.setOnCreateContextMenuListener(contextMenuListener);
-//        listaViewCliente.setOnItemLongClickListener(longClickListener);
 
         // Chamar tela de cadastro Cliente
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.novo);
@@ -136,10 +129,7 @@ public class ClienteFragment extends Fragment {
                 clienteDAO.salvarListaCliente(listaContato);
                 carregarCliente();
 
-                Toast.makeText(getContext(), "Atualizando " + listaContato.size() + " Contatos", Toast.LENGTH_LONG).show();
-
-//                Snackbar.make(view, "Atualizando " + listaContato.size() + " Contatos", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                Toast.makeText(getContext(), "Inseridos " + listaContato.size() + " Clientes", Toast.LENGTH_LONG).show();
             }
         });
         return view;
@@ -157,7 +147,7 @@ public class ClienteFragment extends Fragment {
         }
     }
 
-    private void setArrayAdapterCliente() {
+    public void setArrayAdapterCliente() {
         listaCliente = clienteDAO.getLista();
         List<String> valores = new ArrayList<String>();
         // adapter dos contatos do dispositivo

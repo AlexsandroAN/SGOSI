@@ -1,7 +1,8 @@
-package br.com.dae.sgosi;
+package br.com.dae.sgosi.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +44,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         public void onItemClick(View view, int position);
 
         public void onLongItemClick(View view, int position);
+
     }
 
     public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
@@ -58,6 +60,8 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
                 View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && mListener != null) {
                     mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+
+
                 }
             }
         });

@@ -38,11 +38,9 @@ public class AdapterOrdemServico extends RecyclerView.Adapter<AdapterOrdemServic
         holder.nrOs.setText("Nr OS: " + os.getId());
         holder.clienteNome.setText("Cliente: " + os.getCliente().getNome());
         holder.tipoServico.setText("Tipo: " + os.getTipoServico().getNome());
-        holder.status.setText("Status: " +os.getStatus().getDescrisao());
-        holder.dataInicio.setText(dateFormat.format(os.getDataInicio()));
-        holder.descInicio.setText(os.getDescricaoInicio());
-        holder.dataFim.setText(dateFormat.format(os.getDataFim()));
-        holder.descFim.setText(os.getDescricaoFim());
+        holder.status.setText("Status: " + os.getStatus().getDescrisao());
+        holder.dataInicio.setText("Data Início: " + dateFormat.format(os.getDataInicio()));
+        holder.dataFim.setText("Data Fim: " + dateFormat.format(os.getDataFim()));
     }
 
     @Override
@@ -57,9 +55,7 @@ public class AdapterOrdemServico extends RecyclerView.Adapter<AdapterOrdemServic
         TextView tipoServico;
         TextView status;
         TextView dataInicio;
-        TextView descInicio;
         TextView dataFim;
-        TextView descFim;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -68,9 +64,7 @@ public class AdapterOrdemServico extends RecyclerView.Adapter<AdapterOrdemServic
             tipoServico = itemView.findViewById(R.id.textTipoServico);
             status = itemView.findViewById(R.id.textStatus);
             dataInicio = itemView.findViewById(R.id.textDataInicio);
-            descInicio = itemView.findViewById(R.id.textDescInicio);
             dataFim = itemView.findViewById(R.id.textDataFim);
-            descFim = itemView.findViewById(R.id.textDescFim);
         }
     }
 

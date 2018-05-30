@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,8 +53,6 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
                 " dataFim INTEGER," +
                 " descricaoInicio TEXT," +
                 " descricaoFim TEXT);";
-               // " FOREIGN KEY (cliente) REFERENCES cliente (id), " +
-               // " FOREIGN KEY (tipoServico) REFERENCES tipo_servico (id));";
 
         db.execSQL(tipoServicoSQL);
         db.execSQL(clienteSQL);
@@ -84,19 +83,19 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
         db.insert("ordem_servico", null, values);
     }
 
-//    public void alterarOrdemServico(OrdemServico ordemServico) {
-//        ContentValues values = new ContentValues();
-//        values.put("cliente", ordemServico.getCliente().getId());
-//        values.put("tipoServico", ordemServico.getTipoServico());
-//        values.put("status", ordemServico.getStatus().ordinal());
-//        values.put("dataInicio", ordemServico.getDataInicio().getTime());
-//        values.put("dataFim", ordemServico.getDataFim().getTime());
-//        values.put("descricaoInicio", ordemServico.getDescricaoInicio());
-//        values.put("descricaoFim", ordemServico.getDescricaoFim());
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        getWritableDatabase().update("ordem_servico", values, "id = ?", new String[]{String.valueOf(ordemServico.getId())});
-//    }
+    public void alterarOrdemServico(OrdemServico ordemServico) {
+        ContentValues values = new ContentValues();
+        values.put("cliente", ordemServico.getCliente().getId());
+        values.put("tipoServico", ordemServico.getTipoServico().getId());
+        values.put("status", ordemServico.getStatus().ordinal());
+        values.put("dataInicio", ordemServico.getDataInicio().getTime());
+        values.put("dataFim", ordemServico.getDataFim().getTime());
+        values.put("descricaoInicio", ordemServico.getDescricaoInicio());
+        values.put("descricaoFim", ordemServico.getDescricaoFim());
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        getWritableDatabase().update("ordem_servico", values, "id = ?", new String[]{String.valueOf(ordemServico.getId())});
+    }
 
     public void deletarOrdemServico(OrdemServico ordemServico) {
         getWritableDatabase().delete("ordem_servico", "id = ?", new String[]{String.valueOf(ordemServico.getId())});
