@@ -120,11 +120,11 @@ public class OrdemServicoFragment extends Fragment {
                 if (listaTipoCliente.isEmpty() || listaCliente.isEmpty()) {
 
                     if (listaTipoCliente.isEmpty() && !listaCliente.isEmpty()) {
-                        Toast.makeText(context, "O App não existe Tipo de Serviço", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "O App não existe Tipo de Serviço! Cadastre antes.", Toast.LENGTH_LONG).show();
                     } else if (listaCliente.isEmpty() && !listaTipoCliente.isEmpty()) {
-                        Toast.makeText(context, "O App não existe Cliente", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "O App não existe Cliente! Cadastre antes.", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(context, "O App não existe Tipo de Serviço e nem Cliente", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "O App não existe Tipo de Serviço e nem Cliente! Cadastre antes.", Toast.LENGTH_LONG).show();
                     }
 
                 } else {

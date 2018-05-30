@@ -114,6 +114,8 @@ public class ClienteFragment extends Fragment {
                 )
         );
 
+
+
         // Chamar tela de cadastro Cliente
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.novo);
         fab.setOnClickListener(new View.OnClickListener() {
