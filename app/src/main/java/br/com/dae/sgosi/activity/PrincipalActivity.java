@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +46,7 @@ public class PrincipalActivity extends AppCompatActivity
     private String tela;
     private SQLiteDatabase escreve;
     private SQLiteDatabase le;
+    private TextView textNomeUsuario, textEmailUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,12 @@ public class PrincipalActivity extends AppCompatActivity
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        textNomeUsuario = (TextView)  findViewById(R.id.textNomeUsuario);
+        textEmailUsuario = (EditText) findViewById(R.id.textEmailUsuario);
+
+        textNomeUsuario.setText("teste");
+
 
         usuarioFirebase = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
