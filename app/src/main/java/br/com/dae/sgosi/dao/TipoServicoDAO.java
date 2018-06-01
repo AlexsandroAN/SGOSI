@@ -8,65 +8,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import br.com.dae.sgosi.Util.Constantes;
 import br.com.dae.sgosi.entidade.TipoServico;
+import br.com.dae.sgosi.helper.DbHelper;
 
 /**
  * Created by 39091 on 23/04/2018.
  */
 
-public class TipoServicoDAO extends SQLiteOpenHelper {
+public class TipoServicoDAO{
+
+    private SQLiteDatabase escreve;
+    private SQLiteDatabase le;
 
     public TipoServicoDAO(Context context) {
-        super(context, Constantes.BD_NOME, null, Constantes.BD_VERSAO);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        StringBuilder query = new StringBuilder();
-        query.append("CREATE TABLE tipo_servico (");
-        query.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
-        query.append(" nome TEXT(50) NOT NULL,");
-        query.append(" descricao TEXT(100))");
-
-        db.execSQL(query.toString());
-
-        StringBuilder query1 = new StringBuilder();
-        query1.append("CREATE TABLE cliente (");
-        query1.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
-        query1.append(" nome TEXT(50) NOT NULL,");
-        query1.append(" descricao TEXT(100),");
-        query1.append(" endereco TEXT(100),");
-        query1.append(" email TEXT(20),");
-        query1.append(" telefone TEXT(20))");
-
-        db.execSQL(query1.toString());
-
-        StringBuilder queryTbOrdemServico = new StringBuilder();
-        queryTbOrdemServico.append("CREATE TABLE ordem_servico (");
-        queryTbOrdemServico.append(" id INTEGER PRIMARY KEY AUTOINCREMENT,");
-        queryTbOrdemServico.append(" cliente  INTERGER NOT NULL,");
-        queryTbOrdemServico.append(" tipoServico INTERGER NOT NULL,");
-        queryTbOrdemServico.append(" status INTERGER NOT NULL,");
-        queryTbOrdemServico.append(" dataInicio INTERGER,");
-        queryTbOrdemServico.append(" dataFim INTERGER,");
-        queryTbOrdemServico.append(" descricaoInicio TEXT,");
-        queryTbOrdemServico.append(" descricaoFim TEXT)");
-
-        db.execSQL(queryTbOrdemServico.toString());
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String tipoServico = "DROP TABLE IF EXISTS tipo_servico";
-        db.execSQL(tipoServico);
+        DbHelper db = new DbHelper( context );
+        escreve = db.getWritableDatabase();
+        le = db.getReadableDatabase();
     }
 
     public void salvarTipoServico(TipoServico tipoServico){
         ContentValues values = new ContentValues();
         values.put("nome", tipoServico.getNome());
         values.put("descricao", tipoServico.getDescricao());
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("tipo_servico", null, values);
+        escreve.insert("tipo_servico", null, values);
     }
 
     public void alterarTipoServico(TipoServico tipoServico){
@@ -75,17 +39,15 @@ public class TipoServicoDAO extends SQLiteOpenHelper {
         values.put("nome", tipoServico.getNome());
         values.put("descricao", tipoServico.getDescricao());
 
-        getWritableDatabase().update("tipo_servico", values, "id = ?", new String[]{String.valueOf(tipoServico.getId())});
+        escreve.update("tipo_servico", values, "id = ?", new String[]{String.valueOf(tipoServico.getId())});
     }
 
     public void deletarTipoServico(TipoServico tipoServico){
-        getWritableDatabase().delete("tipo_servico", "id = ?", new String[]{String.valueOf(tipoServico.getId())});
+        escreve.delete("tipo_servico", "id = ?", new String[]{String.valueOf(tipoServico.getId())});
     }
 
     public ArrayList<TipoServico> getLista() {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query("tipo_servico", null, null, null, null, null, null);
+        Cursor cursor = escreve.query("tipo_servico", null, null, null, null, null, null);
 
         ArrayList<TipoServico> listaTipoServico = new ArrayList<TipoServico>();
 
@@ -106,9 +68,8 @@ public class TipoServicoDAO extends SQLiteOpenHelper {
 
     public TipoServico consultarTipoServicoPorId(int idTipoServico) {
         TipoServico tipoServico = new TipoServico();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("tipo_servico", null, "ID = ?", new String[]{String.valueOf(idTipoServico)}, null, null, "nome");
+        Cursor cursor = le.query("tipo_servico", null, "ID = ?", new String[]{String.valueOf(idTipoServico)}, null, null, "nome");
 
         if (cursor.moveToNext()) {
             setTipoServicoFromCursor(cursor, tipoServico);

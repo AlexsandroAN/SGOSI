@@ -6,71 +6,33 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.dae.sgosi.Util.Constantes;
-import br.com.dae.sgosi.activity.CadastroOrdemServicoActivity;
 import br.com.dae.sgosi.entidade.Cliente;
 import br.com.dae.sgosi.entidade.OrdemServico;
 import br.com.dae.sgosi.entidade.StatusOrdemServico;
 import br.com.dae.sgosi.entidade.TipoServico;
+import br.com.dae.sgosi.helper.DbHelper;
 
 /**
  * Created by 39091 on 23/04/2018.
  */
 
-public class OrdemServicoDAO extends SQLiteOpenHelper {
+public class OrdemServicoDAO {
 
-    private Context context;
+    private SQLiteDatabase escreve;
+    private SQLiteDatabase le;
 
     public OrdemServicoDAO(Context context) {
-        super(context, Constantes.BD_NOME, null, Constantes.BD_VERSAO);
+        DbHelper db = new DbHelper( context );
+        escreve = db.getWritableDatabase();
+        le = db.getReadableDatabase();
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String tipoServicoSQL = "CREATE TABLE tipo_servico (" +
-                " id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " nome TEXT(50) NOT NULL," +
-                " descricao TEXT(100));";
-
-        String clienteSQL = "CREATE TABLE cliente (" +
-                " id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " nome TEXT(50) NOT NULL," +
-                " descricao TEXT(100)," +
-                " endereco TEXT(100)," +
-                " email TEXT(20)," +
-                " telefone TEXT(20));";
-
-        String ordemServicoSQL = "CREATE TABLE ordem_servico (" +
-                " id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " cliente  INTEGER," +
-                " tipoServico INTEGER," +
-                " status INTEGER," +
-                " dataInicio INTEGER," +
-                " dataFim INTEGER," +
-                " descricaoInicio TEXT," +
-                " descricaoFim TEXT);";
-
-        db.execSQL(tipoServicoSQL);
-        db.execSQL(clienteSQL);
-        db.execSQL(ordemServicoSQL);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String tipo_servico = "DROP TABLE IF EXISTS tipo_servico";
-        String cliente = "DROP TABLE IF EXISTS cliente";
-        String ordem_servico = "DROP TABLE IF EXISTS ordem_servico";
-        db.execSQL(tipo_servico);
-        db.execSQL(cliente);
-        db.execSQL(ordem_servico);
-    }
 
     public void salvarOrdemServico(OrdemServico ordemServico) {
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("cliente", ordemServico.getCliente().getId());
         values.put("tipoServico", ordemServico.getTipoServico().getId());
@@ -80,7 +42,7 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
         values.put("descricaoInicio", ordemServico.getDescricaoInicio());
         values.put("descricaoFim", ordemServico.getDescricaoFim());
 
-        db.insert("ordem_servico", null, values);
+        escreve.insert("ordem_servico", null, values);
     }
 
     public void alterarOrdemServico(OrdemServico ordemServico) {
@@ -92,20 +54,16 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
         values.put("dataFim", ordemServico.getDataFim().getTime());
         values.put("descricaoInicio", ordemServico.getDescricaoInicio());
         values.put("descricaoFim", ordemServico.getDescricaoFim());
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        getWritableDatabase().update("ordem_servico", values, "id = ?", new String[]{String.valueOf(ordemServico.getId())});
+        escreve.update("ordem_servico", values, "id = ?", new String[]{String.valueOf(ordemServico.getId())});
     }
 
     public void deletarOrdemServico(OrdemServico ordemServico) {
-        getWritableDatabase().delete("ordem_servico", "id = ?", new String[]{String.valueOf(ordemServico.getId())});
+        escreve.delete("ordem_servico", "id = ?", new String[]{String.valueOf(ordemServico.getId())});
     }
 
     public ArrayList<OrdemServico> getLista() {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-      //Cursor cursor = db.rawQuery("select * from ordem_servico inner join cliente", null);
-        Cursor cursor = db.query("ordem_servico", null, null, null, null, null, null);
+        Cursor cursor = le.query("ordem_servico", null, null, null, null, null, null);
 
         ArrayList<OrdemServico> listaOrdemServico = new ArrayList<OrdemServico>();
 
@@ -150,9 +108,8 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
 
     public Cliente consultarClientePorId(int idCliente) {
         Cliente cliente = new Cliente();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("cliente", null, "ID = ?", new String[]{String.valueOf(idCliente)}, null, null, "nome");
+        Cursor cursor = le.query("cliente", null, "ID = ?", new String[]{String.valueOf(idCliente)}, null, null, "nome");
 
         if (cursor.moveToNext()) {
             setClienteFromCursor(cursor, cliente);
@@ -171,9 +128,8 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
 
     public TipoServico consultarTipoServicoPorId(int idTipoServico) {
         TipoServico tipoServico = new TipoServico();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("tipo_servico", null, "ID = ?", new String[]{String.valueOf(idTipoServico)}, null, null, "nome");
+        Cursor cursor = le.query("tipo_servico", null, "ID = ?", new String[]{String.valueOf(idTipoServico)}, null, null, "nome");
 
         if (cursor.moveToNext()) {
             setTipoServicoFromCursor(cursor, tipoServico);
@@ -190,9 +146,8 @@ public class OrdemServicoDAO extends SQLiteOpenHelper {
 
     public OrdemServico consultarOrdemServicoPorId(int idOrdemServico) {
         OrdemServico ordemServico = new OrdemServico();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query("ordem_servico", null, "ID = ?", new String[]{String.valueOf(idOrdemServico)}, null, null, null);
+        Cursor cursor = le.query("ordem_servico", null, "ID = ?", new String[]{String.valueOf(idOrdemServico)}, null, null, null);
 
         if (cursor.moveToNext()) {
             setOrdemServicoFromCursor(cursor, ordemServico);

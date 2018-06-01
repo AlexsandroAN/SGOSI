@@ -1,4 +1,4 @@
-package br.com.dae.sgosi.dao;
+package br.com.dae.sgosi.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
