@@ -55,10 +55,10 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textNomeUsuario = (TextView)  findViewById(R.id.textNomeUsuario);
-        textEmailUsuario = (EditText) findViewById(R.id.textEmailUsuario);
-
-        textNomeUsuario.setText("teste");
+//        textNomeUsuario = (TextView)  findViewById(R.id.textNomeUsuario);
+//        textEmailUsuario = (EditText) findViewById(R.id.textEmailUsuario);
+//
+//        textNomeUsuario.setText("teste");
 
 
         usuarioFirebase = ConfiguracaoFirebase.getFirebaseAutenticacao();
