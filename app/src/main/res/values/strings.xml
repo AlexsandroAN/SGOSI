@@ -7,7 +7,7 @@
     <string name="action_sair">Sair</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="modelo_fragment">Fragmento Modelo</string>
+    <string name="modelo_fragment">Fragmento em desenvolvimento</string>
 
     <string name="modelo_fragment_tipo_servico">Fragmento Tipo de Serviço</string>
 
@@ -18,4 +18,14 @@
     <string name="title_activity_lista_tipo_servico">ListaTipoServicoActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_cadastro_cliente">CadastroClienteActivity</string>
+    <string name="title_activity_cadastro_usuario">CadastroUsuarioActivity</string>
+
+    <string name="botao_cadastrar">Cadastrar</string>
+
+    <string name="texto_validacao">Validação</string>
+    <string name="botao_validar">Validar</string>
+    <string name="botao_logar">Logar</string>
+    <string name="texto_cadastre">Não tem conta? Cadastre-se</string>
+    <string name="item_configuracoes">Configurações</string>
+    <string name="item_sair">Sair</string>
 </resources>

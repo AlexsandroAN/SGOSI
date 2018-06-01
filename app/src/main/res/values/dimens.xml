@@ -17,4 +17,7 @@
     <dimen name="margin_widgets1">10dip</dimen>
     <dimen name="texto_padrao">16sp</dimen>
     <dimen name="texto_botao">25sp</dimen>
+
+    <dimen name="largura_logo">200dp</dimen>
+    <dimen name="altura_logo">163dp</dimen>
 </resources>

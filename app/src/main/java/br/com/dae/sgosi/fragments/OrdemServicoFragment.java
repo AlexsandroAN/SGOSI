@@ -3,6 +3,7 @@ package br.com.dae.sgosi.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -46,7 +47,6 @@ public class OrdemServicoFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterOrdemServico adapterOrdemServico;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
     public OrdemServicoFragment() {
     }
 
@@ -111,7 +111,7 @@ public class OrdemServicoFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                tipoServicoDAO = new TipoServicoDAO(context);
+                tipoServicoDAO = new TipoServicoDAO(getContext());
                 List<TipoServico> listaTipoCliente = tipoServicoDAO.getLista();
 
                 clienteDAO = new ClienteDAO(context);
@@ -139,7 +139,7 @@ public class OrdemServicoFragment extends Fragment {
     public void carregarOrdemServico() {
         ordemServicoDAO = new OrdemServicoDAO(getContext());
         listViewOrdemServico = ordemServicoDAO.getLista();
-        ordemServicoDAO.close();
+       // ordemServicoDAO.close();
 
         if (listViewOrdemServico != null) {
             adapterOrdemServico = new AdapterOrdemServico(listViewOrdemServico);

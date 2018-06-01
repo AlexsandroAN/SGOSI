@@ -3,9 +3,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+    <style name="AppThemeLogin" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -46,6 +53,12 @@
         <item name="android:layout_marginBottom">@dimen/margin_widgets1</item>
     </style>
 
+    <style name="botaoPadrao" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="Edt_Estilo">
         <item name="android:textSize">@dimen/texto_padrao</item>
         <item name="android:layout_weight">@dimen/margin_widgets</item>
@@ -76,7 +89,7 @@
     <style name="AppTheme.Dark.Dialog.Info" parent="Theme.AppCompat.Dialog">
         <item name="colorAccent">@color/branco</item>
         <item name="android:textColorPrimary">@color/branco</item>
-        <item name="android:background">@color/primary_info</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.Dark.Dialog.Sucesso" parent="Theme.AppCompat.Dialog">

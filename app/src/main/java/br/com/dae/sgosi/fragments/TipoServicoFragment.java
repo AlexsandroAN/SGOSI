@@ -77,7 +77,6 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment{
         carregarTipoServico();
 
         listaViewTipoServico.setOnItemClickListener(clickListenerTipoServico);
-        //listaViewTipoServico.setOnCreateContextMenuListener(contextMenuListener);
         listaViewTipoServico.setOnItemLongClickListener(longClickListener);
 
         // Chamar tela de cadastro Tipo de Serviço
@@ -95,7 +94,6 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment{
 
     public void carregarTipoServico() {
         listViewTipoServico = tipoServicoDAO.getLista();
-        tipoServicoDAO.close();
 
         if (listViewTipoServico != null) {
             adapter = new ArrayAdapter<TipoServico>(getContext(), android.R.layout.simple_list_item_1, listViewTipoServico);
@@ -139,15 +137,6 @@ public class TipoServicoFragment extends android.support.v4.app.Fragment{
             Util.showMsgAlertOK(getActivity(), "Info", info.toString(), TipoMsg.INFO);
         }
     };
-
-//    private View.OnCreateContextMenuListener contextMenuListener = new View.OnCreateContextMenuListener() {
-//        @Override
-//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//            menu.setHeaderTitle("Opções").setHeaderIcon(R.drawable.edit);
-//            menu.add(1, 10, 1, "Editar");
-//            menu.add(1, 20, 2, "Deletar");
-//        }
-//    };
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {

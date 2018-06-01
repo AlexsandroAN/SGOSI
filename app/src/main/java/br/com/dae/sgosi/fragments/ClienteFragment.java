@@ -114,8 +114,6 @@ public class ClienteFragment extends Fragment {
                 )
         );
 
-
-
         // Chamar tela de cadastro Cliente
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.novo);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +123,6 @@ public class ClienteFragment extends Fragment {
                 Contatos Contato = new Contatos(getContext());
                 // Pegar todos os contatos
                 //  listaCliente = Contato.getContatos(listViewCliente);
-
                 listaContato = Contato.getContatos();
                 // Atualizar os clientes
                 clienteDAO.salvarListaCliente(listaContato);
@@ -141,7 +138,6 @@ public class ClienteFragment extends Fragment {
     public void carregarCliente() {
         clienteDAO = new ClienteDAO(getContext());
         listViewCliente = clienteDAO.getLista();
-        clienteDAO.close();
 
         if (listViewCliente != null) {
             adapterCliente = new AdapterCliente(listViewCliente);

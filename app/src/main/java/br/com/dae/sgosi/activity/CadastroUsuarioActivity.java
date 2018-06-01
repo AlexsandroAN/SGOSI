@@ -34,7 +34,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     private FirebaseAuth autenticacao;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,41 +48,55 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                if (nome.getText().toString().equals("")) {
+                    Toast.makeText(CadastroUsuarioActivity.this, "Digite seu nome", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (email.getText().toString().equals("")) {
+                    Toast.makeText(CadastroUsuarioActivity.this, "Digite seu e-mail", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (senha.getText().toString().equals("")) {
+                    Toast.makeText(CadastroUsuarioActivity.this, "Digite sua senha", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 usuario = new Usuario();
-                usuario.setNome( nome.getText().toString() );
+                usuario.setNome(nome.getText().toString());
                 usuario.setEmail(email.getText().toString());
                 usuario.setSenha(senha.getText().toString());
+
                 cadastrarUsuario();
 
             }
         });
-
     }
 
-    private void cadastrarUsuario(){
+    private void cadastrarUsuario() {
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         autenticacao.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if( task.isSuccessful() ){
+                if (task.isSuccessful()) {
 
-                    Toast.makeText(CadastroUsuarioActivity.this, "Sucesso ao cadastrar usuário", Toast.LENGTH_LONG ).show();
+                    Toast.makeText(CadastroUsuarioActivity.this, "Sucesso ao cadastrar usuário", Toast.LENGTH_LONG).show();
 
-                    String identificadorUsuario = Base64Custom.codificarBase64( usuario.getEmail() );
-                    usuario.setId( identificadorUsuario );
+                    String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    usuario.setId(identificadorUsuario);
                     usuario.salvar();
 
                     Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
-                    preferencias.salvarDados( identificadorUsuario, usuario.getNome() );
+                    preferencias.salvarDados(identificadorUsuario, usuario.getNome());
 
                     abrirLoginUsuario();
 
-                }else{
+                } else {
 
                     String erro = "";
-                    try{
+                    try {
                         throw task.getException();
                     } catch (FirebaseAuthWeakPasswordException e) {
                         erro = "Escolha uma senha que contenha, letras e números.";
@@ -95,7 +108,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(CadastroUsuarioActivity.this, "Erro ao cadastrar usuário: " + erro, Toast.LENGTH_LONG ).show();
+                    Toast.makeText(CadastroUsuarioActivity.this, "Erro ao cadastrar usuário: " + erro, Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -103,7 +116,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
     }
 
-    public void abrirLoginUsuario(){
+    public void abrirLoginUsuario() {
         Intent intent = new Intent(CadastroUsuarioActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
