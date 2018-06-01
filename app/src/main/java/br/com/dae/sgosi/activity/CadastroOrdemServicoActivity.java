@@ -82,21 +82,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         this.initClientes();
         this.initStatus();
         this.initTipoServico();
-//        btnPoliform.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ordemServicoDAO = new OrdemServicoDAO(CadastroOrdemServicoActivity.this);
-//                ordemServico = montarOrdemServico();
-//                ordemServicoDAO.salvarOrdemServico(ordemServico);
-//                ordemServicoDAO.close();
-//
-//                Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de servico salvo com sucesso", Toast.LENGTH_LONG).show();
-//
-//                Intent i = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
-//                startActivity(i);
-//                finish();
-//            }
-//        });
     }
 
     private OrdemServico montarOrdemServico() {
@@ -205,7 +190,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         return null;
     }
 
-
     private void initStatus() {
         ArrayList<String> status = new ArrayList<>();
         for (StatusOrdemServico statusOS : StatusOrdemServico.values()) {
@@ -311,7 +295,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
             case R.id.menu_remove:
                 if (editarOrdemServico != null) {
                     ordemServicoDAO.deletarOrdemServico(editarOrdemServico);
-                    ordemServicoDAO.close();
                     Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
                     intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);
                     intent.putExtra("tela", "cadastroOrdemServicoActivity");
@@ -330,7 +313,6 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
                     } else {
                         ordemServicoDAO.alterarOrdemServico(ordemServico);
                     }
-                    ordemServicoDAO.close();
                     Toast.makeText(CadastroOrdemServicoActivity.this, "Ordem de serviço salvo com sucesso", Toast.LENGTH_LONG).show();
 
                     intent = new Intent(CadastroOrdemServicoActivity.this, PrincipalActivity.class);

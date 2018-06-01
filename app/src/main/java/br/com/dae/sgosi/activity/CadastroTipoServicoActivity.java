@@ -60,31 +60,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
             edtNome.setText(editarTipoServico.getNome());
             edtDescricao.setText(editarTipoServico.getDescricao());
         }
-
-//        btnPoliform.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                tipoServico.setNome(edtNome.getText().toString());
-//                tipoServico.setDescricao(edtDescricao.getText().toString());
-//
-//                if (!validarTipoServico(tipoServico)) {
-//                    if (getSupportActionBar().getTitle().equals("Adicionar Tipo Serviço")) {
-//                        tipoServicoDAO.salvarTipoServico(tipoServico);
-//                        tipoServicoDAO.close();
-//                        Toast.makeText(CadastroTipoServicoActivity.this, "Tipo de Serviço salvo com sucesso", Toast.LENGTH_LONG ).show();
-//                    } else {
-//                        tipoServicoDAO.alterarTipoServico(tipoServico);
-//                        tipoServicoDAO.close();
-//                        Toast.makeText(CadastroTipoServicoActivity.this, "Tipo de Serviço editado com sucesso!", Toast.LENGTH_LONG ).show();
-//                    }
-//                    Intent i = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
-//                    i.putExtra("tela", "cadastroTipoServicoActivity");
-//                    startActivity(i);
-//                    finish();
-//                }
-//            }
-//        });
     }
 
     private boolean validarTipoServico(TipoServico tipoServico) {
@@ -113,8 +88,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -142,7 +115,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
 
                     if(excluirTipoServico){
                         tipoServicoDAO.deletarTipoServico(editarTipoServico);
-                        tipoServicoDAO.close();
                         Toast.makeText(CadastroTipoServicoActivity.this, "Tipo Serviço deletado com sucesso!", Toast.LENGTH_LONG).show();
                         intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);
                         intent.putExtra("tela", "cadastroTipoServicoActivity");
@@ -164,7 +136,6 @@ public class CadastroTipoServicoActivity extends AppCompatActivity {
                     } else {
                         tipoServicoDAO.alterarTipoServico(tipoServico);
                     }
-                    tipoServicoDAO.close();
                     Toast.makeText(CadastroTipoServicoActivity.this, "Tipo de Serviço salvo com sucesso!", Toast.LENGTH_LONG).show();
 
                     intent = new Intent(CadastroTipoServicoActivity.this, PrincipalActivity.class);

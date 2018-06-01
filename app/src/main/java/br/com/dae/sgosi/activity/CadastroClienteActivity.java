@@ -68,34 +68,6 @@ public class CadastroClienteActivity extends AppCompatActivity {
             edtEmail.setText(editarCliente.getEmail());
             edtTelefone.setText(editarCliente.getTelefone());
         }
-
-//        btnPoliform.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                cliente.setNome(edtNome.getText().toString());
-//                cliente.setDescricao(edtDescricao.getText().toString());
-//                cliente.setEndereco(edtEndereco.getText().toString());
-//                cliente.setEmail(edtEmail.getText().toString());
-//                cliente.setTelefone(edtTelefone.getText().toString());
-//
-//                // if (!validarCliente(cliente)) {
-//                //   if (getSupportActionBar().getTitle().equals("Adicionar Cliente")) {
-//                clienteDAO.salvarCliente(cliente);
-//                clienteDAO.close();
-//                Toast.makeText(CadastroClienteActivity.this, "Cliente salvo com sucesso", Toast.LENGTH_LONG).show();
-//                //  } else {
-//                //       clienteDAO.alterarCliente(cliente);
-//                //       clienteDAO.close();
-//                //       Toast.makeText(CadastroClienteActivity.this, "Cliente editado com sucesso!", Toast.LENGTH_LONG).show();
-//                //   }
-//                Intent i = new Intent(CadastroClienteActivity.this, MainActivity.class);
-//                i.putExtra("tela", "cadastroClienteActivity");
-//                startActivity(i);
-//                finish();
-//                // }
-//            }
-//        });
     }
 
     private boolean validarCliente(Cliente cliente) {
@@ -144,7 +116,6 @@ public class CadastroClienteActivity extends AppCompatActivity {
 
                     if (excluirCliente) {
                         clienteDAO.deletarCliente(editarCliente);
-                        clienteDAO.close();
                         Toast.makeText(CadastroClienteActivity.this, "Cliente deletado com sucesso!", Toast.LENGTH_LONG).show();
                         intent = new Intent(CadastroClienteActivity.this, PrincipalActivity.class);
                         intent.putExtra("tela", "cadastroClienteActivity");
@@ -170,7 +141,6 @@ public class CadastroClienteActivity extends AppCompatActivity {
                     } else {
                         clienteDAO.alterarCliente(cliente);
                     }
-                    clienteDAO.close();
                     Toast.makeText(CadastroClienteActivity.this, "Cliente salvo com sucesso", Toast.LENGTH_LONG).show();
 
                     intent = new Intent(CadastroClienteActivity.this, PrincipalActivity.class);
