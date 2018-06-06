@@ -76,6 +76,7 @@ public class OrdemServicoDAO {
         return listaOrdemServico;
     }
 
+
     private void setOrdemServicoFromCursor(Cursor cursor, OrdemServico ordemServico) {
         ordemServico.setId(cursor.getInt(cursor.getColumnIndex("id")));
 
@@ -153,5 +154,50 @@ public class OrdemServicoDAO {
             setOrdemServicoFromCursor(cursor, ordemServico);
         }
         return ordemServico;
+    }
+
+    public  ArrayList<OrdemServico> consultarOrdemServicoPorCliente(int idCliente) {
+
+        Cursor cursor = le.query("ordem_servico", null, "cliente = ?", new String[]{String.valueOf(idCliente)}, null, null, null);
+
+        ArrayList<OrdemServico> listaOrdemServico = new ArrayList<OrdemServico>();
+
+        while (cursor.moveToNext()) {
+            OrdemServico ordemServico = new OrdemServico();
+
+            setOrdemServicoFromCursor(cursor, ordemServico);
+            listaOrdemServico.add(ordemServico);
+        }
+        return listaOrdemServico;
+    }
+
+    public  ArrayList<OrdemServico> consultarOrdemServicoPorTipoServico(int idTipoServico) {
+
+        Cursor cursor = le.query("ordem_servico", null, "tipoServico = ?", new String[]{String.valueOf(idTipoServico)}, null, null, null);
+
+        ArrayList<OrdemServico> listaOrdemServico = new ArrayList<OrdemServico>();
+
+        while (cursor.moveToNext()) {
+            OrdemServico ordemServico = new OrdemServico();
+
+            setOrdemServicoFromCursor(cursor, ordemServico);
+            listaOrdemServico.add(ordemServico);
+        }
+        return listaOrdemServico;
+    }
+
+    public  ArrayList<OrdemServico> consultarOrdemServicoPorStatus(int idStatus) {
+
+        Cursor cursor = le.query("ordem_servico", null, "status = ?", new String[]{String.valueOf(idStatus)}, null, null, null);
+
+        ArrayList<OrdemServico> listaOrdemServico = new ArrayList<OrdemServico>();
+
+        while (cursor.moveToNext()) {
+            OrdemServico ordemServico = new OrdemServico();
+
+            setOrdemServicoFromCursor(cursor, ordemServico);
+            listaOrdemServico.add(ordemServico);
+        }
+        return listaOrdemServico;
     }
 }

@@ -18,7 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.config.ConfiguracaoFirebase;
+import br.com.dae.sgosi.entidade.StatusOrdemServico;
+import br.com.dae.sgosi.fragments.RelatorioFragment;
 import br.com.dae.sgosi.helper.DbHelper;
 import br.com.dae.sgosi.fragments.ClienteFragment;
 import br.com.dae.sgosi.fragments.PrincipalFragment;
@@ -54,12 +55,6 @@ public class PrincipalActivity extends AppCompatActivity
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        textNomeUsuario = (TextView)  findViewById(R.id.textNomeUsuario);
-//        textEmailUsuario = (EditText) findViewById(R.id.textEmailUsuario);
-//
-//        textNomeUsuario.setText("teste");
-
 
         usuarioFirebase = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
@@ -95,12 +90,15 @@ public class PrincipalActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         Intent intent = getIntent();
         tela = intent.getStringExtra("tela");
+        //String usuario_email = intent.getStringExtra("usuario_email");
 
         // Configurar objeto para o Fragmento
-        if (tela == null) {
+/*        if (tela == null) {
             setTitle("Principal");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
-        } else if (tela.equals("cadastroOrdemServicoActivity")) {
+        } else if (tela.equals("cadastroOrdemServicoActivity")) {*/
+
+        if (tela == null || tela.equals("cadastroOrdemServicoActivity")) {
             setTitle("Ordens de Serviços");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
         } else if (tela.equals("cadastroOrdemServicoActivity")) {
@@ -112,6 +110,9 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (tela.equals("cadastroClienteActivity")) {
             setTitle("Clientes");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
+        } else if (tela.equals("RelatorioFragment")) {
+            setTitle("Consulta de OS");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new RelatorioFragment()).commit();
         }
     }
 
@@ -130,10 +131,10 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_principal) {
-            setTitle("Principal");
-            fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
-        } else
+//        if (id == R.id.nav_principal) {
+//            setTitle("Principal");
+//            fragmentManager.beginTransaction().replace(R.id.content_fragment, new PrincipalFragment()).commit();
+//        } else if (id == R.id.nav_ordem_servico) {
         if (id == R.id.nav_ordem_servico) {
             setTitle("Ordens de Serviços");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new OrdemServicoFragment()).commit();
@@ -143,6 +144,9 @@ public class PrincipalActivity extends AppCompatActivity
         } else if (id == R.id.nav_cliente) {
             setTitle("Clientes");
             fragmentManager.beginTransaction().replace(R.id.content_fragment, new ClienteFragment()).commit();
+        } else if (id == R.id.nav_consulta) {
+            setTitle("Consulta de OS");
+            fragmentManager.beginTransaction().replace(R.id.content_fragment, new RelatorioFragment()).commit();
         }
 //        else if (id == R.id.nav_compartilhar) {
 //
@@ -164,14 +168,12 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.item_sair:
+            case R.id.item_logout:
                 deslogarUsuario();
                 return true;
-//            case R.id.item_configuracoes:
-//                return true;
-//            case R.id.item_adicionar :
-//                abrirCadastroContato();
-//                return true;
+            case R.id.item_sair:
+                finishAffinity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,33 +181,8 @@ public class PrincipalActivity extends AppCompatActivity
 
     private void deslogarUsuario() {
         usuarioFirebase.signOut();
-
         Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_search, menu);
-//        MenuItem item = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView)item.getActionView();
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//
-//
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
 }

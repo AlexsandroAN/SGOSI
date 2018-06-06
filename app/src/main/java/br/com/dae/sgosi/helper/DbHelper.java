@@ -1,6 +1,7 @@
 package br.com.dae.sgosi.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -16,6 +17,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private Context context;
 
     public DbHelper(Context context) {
+//        Intent intent = getIntent();
+//        String usuario_email = intent.getStringExtra("usuario_email");
         super(context, Constantes.BD_NOME, null, Constantes.BD_VERSAO);
     }
 

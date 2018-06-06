@@ -119,16 +119,21 @@ public class ClienteFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // pegar todos contatos do dispositivo
-                Contatos Contato = new Contatos(getContext());
-                // Pegar todos os contatos
-                //  listaCliente = Contato.getContatos(listViewCliente);
-                listaContato = Contato.getContatos();
-                // Atualizar os clientes
-                clienteDAO.salvarListaCliente(listaContato);
-                carregarCliente();
 
-                Toast.makeText(getContext(), "Inseridos " + listaContato.size() + " Clientes", Toast.LENGTH_LONG).show();
+                List<Cliente> lista = clienteDAO.getLista();
+                if (!lista.isEmpty()) {
+                    Toast.makeText(getContext(), "Os Clientes já foram inseridos", Toast.LENGTH_LONG).show();
+                } else {
+                    // pegar todos contatos do dispositivo
+                    Contatos Contato = new Contatos(getContext());
+                    // Pegar todos os contatos
+                    //  listaCliente = Contato.getContatos(listViewCliente);
+                    listaContato = Contato.getContatos();
+                    // Atualizar os clientes
+                    clienteDAO.salvarListaCliente(listaContato);
+                    carregarCliente();
+                    Toast.makeText(getContext(), "Inseridos " + listaContato.size() + " Clientes", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;

@@ -27,7 +27,8 @@
         <Spinner
             android:id="@+id/spnClientes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/lytTxtTipoServico"
@@ -39,7 +40,8 @@
         <Spinner
             android:id="@+id/spnTipoServico"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/lytTxtStatus"
@@ -51,7 +53,8 @@
         <Spinner
             android:id="@+id/spnStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -44,7 +44,6 @@
     <style name="Txt_Estilo">
         <item name="android:color">@color/txt_padrao</item>
         <item name="android:textSize">@dimen/texto_padrao</item>
-        <item name="android:layout_marginBottom">@dimen/margin_widgets</item>
     </style>
 
     <style name="Txt_Estilo1">

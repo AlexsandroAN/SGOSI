@@ -139,7 +139,6 @@ public class OrdemServicoFragment extends Fragment {
     public void carregarOrdemServico() {
         ordemServicoDAO = new OrdemServicoDAO(getContext());
         listViewOrdemServico = ordemServicoDAO.getLista();
-       // ordemServicoDAO.close();
 
         if (listViewOrdemServico != null) {
             adapterOrdemServico = new AdapterOrdemServico(listViewOrdemServico);

@@ -15,6 +15,8 @@ public class TipoServico implements Serializable {
 
     transient int posicaoAtual;
 
+    transient int qtdOS;
+
     public int getId() {
         return id;
     }
@@ -47,13 +49,21 @@ public class TipoServico implements Serializable {
         this.posicaoAtual = posicaoAtual;
     }
 
+    public int getQtdOS() {
+        return qtdOS;
+    }
+
+    public void setQtdOS(int qtdOS) {
+        this.qtdOS = qtdOS;
+    }
+
     public TipoServico() {
 
     }
 
     @Override
     public String toString() {
-        return nome;
+        return nome + " - " + qtdOS + " OS";
     }
 }
 

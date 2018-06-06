@@ -25,6 +25,8 @@ public class Cliente implements Serializable {
 
     transient int posicaoAtual;
 
+    transient int qtdOS;
+
     public int getId() {
         return id;
     }
@@ -81,12 +83,20 @@ public class Cliente implements Serializable {
         this.posicaoAtual = posicaoAtual;
     }
 
+    public int getQtdOS() {
+        return qtdOS;
+    }
+
+    public void setQtdOS(int qtdOS) {
+        this.qtdOS = qtdOS;
+    }
+
     //Metodo sobreescrito para que não aparece o nome do componente
     //na listView
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return nome;
+        return nome + " - " + qtdOS + " OS";
     }
 }
 

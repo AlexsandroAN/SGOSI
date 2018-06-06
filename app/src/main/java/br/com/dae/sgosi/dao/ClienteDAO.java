@@ -26,6 +26,7 @@ public class ClienteDAO{
         DbHelper db = new DbHelper( context );
         escreve = db.getWritableDatabase();
         le = db.getReadableDatabase();
+
     }
 
 
@@ -71,6 +72,12 @@ public class ClienteDAO{
     public void deletarCliente(Cliente cliente) {
        escreve.delete("cliente", "id = ?", new String[]{String.valueOf(cliente.getId())});
     }
+
+    public void close() {
+        escreve.close();
+        le.close();
+    }
+
 
     // Método para listar todos os clientes
     public ArrayList<Cliente> getLista() {

@@ -7,6 +7,7 @@ public enum StatusOrdemServico {
     EM_ANDAMENTO("Em andamento"), // Quando o processo está em andamento
     CONCLUIDO("Concluído"); // Quando o serviço já foi realizado e a ordem será finalizada
 
+    transient int qtdOS;
 
     private StatusOrdemServico(String descricao) {
         this.descrisao = descricao;
@@ -27,4 +28,20 @@ public enum StatusOrdemServico {
         return null;
     }
 
+    public int getQtdOS() {
+        return qtdOS;
+    }
+
+    public void setQtdOS(int qtdOS) {
+        this.qtdOS = qtdOS;
+    }
+
+    public void setDescrisao(String descrisao) {
+        this.descrisao = descrisao;
+    }
+
+    @Override
+    public String toString() {
+            return descrisao + " - " + qtdOS + " OS";
+    }
 }

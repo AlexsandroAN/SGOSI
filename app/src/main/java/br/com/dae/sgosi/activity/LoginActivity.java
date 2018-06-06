@@ -68,6 +68,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validarLogin(){
 
+        if (usuario.getEmail().equals("")) {
+            Toast.makeText(LoginActivity.this, "Digite o e-mail", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (usuario.getSenha().equals("")) {
+            Toast.makeText(LoginActivity.this, "Digite a senha", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         autenticacao.signInWithEmailAndPassword(
                 usuario.getEmail(),
@@ -104,20 +114,18 @@ public class LoginActivity extends AppCompatActivity {
 
                     firebase.addListenerForSingleValueEvent( valueEventListenerUsuario );
 
-
-
                     abrirTelaPrincipal();
                     Toast.makeText(LoginActivity.this, "Sucesso ao fazer login!", Toast.LENGTH_LONG ).show();
                 }else{
                     Toast.makeText(LoginActivity.this, "Erro ao fazer login!", Toast.LENGTH_LONG ).show();
                 }
-
             }
         });
     }
 
     private void abrirTelaPrincipal(){
         Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
+        //intent.putExtra("usuario_email", usuario.getEmail());
         startActivity( intent );
         finish();
     }

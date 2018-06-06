@@ -54,6 +54,31 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
+            android:name=".activity.ListaClienteActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ListaClienteOSActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ListaTipoServicoActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ListaTipoServicoOSActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ListaStatusActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.ListaStatusOSActivity"
+            android:label="@string/title_activity_cadastro_cliente"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".activity.CadastroUsuarioActivity"
             android:label="@string/title_activity_cadastro_usuario"
             android:theme="@style/AppThemeLogin"
