@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +19,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import br.com.dae.sgosi.R;
@@ -32,6 +37,8 @@ import br.com.dae.sgosi.fragments.ClienteFragment;
 import br.com.dae.sgosi.fragments.PrincipalFragment;
 import br.com.dae.sgosi.fragments.OrdemServicoFragment;
 import br.com.dae.sgosi.fragments.TipoServicoFragment;
+import br.com.dae.sgosi.helper.UsuarioFirebase;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,7 +54,9 @@ public class PrincipalActivity extends AppCompatActivity
     private String tela;
     private SQLiteDatabase escreve;
     private SQLiteDatabase le;
+    private CircleImageView circleImageViewPerfil;
     private TextView textNomeUsuario, textEmailUsuario;
+    private ImageView imagemUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +95,28 @@ public class PrincipalActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Mudar cabeçalho do NavigationView
+        View header=navigationView.getHeaderView(0);
+        textNomeUsuario = (TextView)header.findViewById(R.id.textNomeUsuario);
+        textEmailUsuario = (TextView)header.findViewById(R.id.textEmailUsuario);
+        circleImageViewPerfil = (CircleImageView) header.findViewById(R.id.circleImageViewFotoPerfil);
+
+        textNomeUsuario.setText(usuarioFirebase.getCurrentUser().getDisplayName());
+        textEmailUsuario.setText(usuarioFirebase.getCurrentUser().getEmail());
+
+        usuarioFirebase.getCurrentUser().getPhotoUrl();
+
+        Uri url =  usuarioFirebase.getCurrentUser().getPhotoUrl();
+
+        if ( url != null ){
+            Glide.with(PrincipalActivity.this)
+                    .load( url )
+                    .into( circleImageViewPerfil );
+        }else {
+            circleImageViewPerfil.setImageResource(R.drawable.padrao);
+        }
+
 
         fragmentManager = getSupportFragmentManager();
         Intent intent = getIntent();
@@ -129,6 +160,8 @@ public class PrincipalActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
         int id = item.getItemId();
 
 //        if (id == R.id.nav_principal) {
