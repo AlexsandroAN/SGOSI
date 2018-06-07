@@ -174,9 +174,17 @@ public class PrincipalActivity extends AppCompatActivity
             case R.id.item_sair:
                 finishAffinity();
                 return true;
+            case R.id.item_configuracoes:
+                abrirConfiguracoes();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void abrirConfiguracoes() {
+        Intent intent = new Intent(PrincipalActivity.this, ConfiguracoesActivity.class);
+        startActivity(intent);
     }
 
     private void deslogarUsuario() {

@@ -6,6 +6,7 @@
     <color name="colorPrimary">#0b6156</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="colorAccent">#3d958a</color>
+    <color name="cinza_claro">#eeeeee</color>
 
     <!--<color name="colorPrimary">#00956b</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->

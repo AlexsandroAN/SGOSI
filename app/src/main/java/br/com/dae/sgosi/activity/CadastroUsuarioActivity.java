@@ -22,6 +22,7 @@ import br.com.dae.sgosi.entidade.Usuario;
 import br.com.dae.sgosi.R;
 import br.com.dae.sgosi.helper.Base64Custom;
 import br.com.dae.sgosi.helper.Preferencias;
+import br.com.dae.sgosi.helper.UsuarioFirebase;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
 
@@ -83,6 +84,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     Toast.makeText(CadastroUsuarioActivity.this, "Sucesso ao cadastrar usuário", Toast.LENGTH_LONG).show();
+
+                    UsuarioFirebase.atualizarNomeUsuario( usuario.getNome() );
 
                     String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
                     usuario.setId(identificadorUsuario);

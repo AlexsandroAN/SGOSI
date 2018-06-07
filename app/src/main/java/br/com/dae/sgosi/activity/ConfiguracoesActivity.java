@@ -12,13 +12,27 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 import br.com.dae.sgosi.R;
+import br.com.dae.sgosi.config.ConfiguracaoFirebase;
 import br.com.dae.sgosi.helper.Permissao;
 
 import br.com.dae.sgosi.helper.Permissao;
+import br.com.dae.sgosi.helper.UsuarioFirebase;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ConfiguracoesActivity extends AppCompatActivity {
@@ -31,24 +45,46 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     private static final int SELECAO_CAMERA  = 100;
     private static final int SELECAO_GALERIA = 200;
     private CircleImageView circleImageViewPerfil;
+    private EditText editPerfilNome;
+    private StorageReference storageReference;
+    private String identificadorUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
 
-        //Validar permissõesl
+        //Configurações iniciais
+        storageReference = ConfiguracaoFirebase.getFirebaseStorage();
+        identificadorUsuario = UsuarioFirebase.getIdentificadorUsuario();
+
+        //Validar permissões
         Permissao.validarPermissoes(permissoesNecessarias, this, 1);
 
         imageButtonCamera  = findViewById(R.id.imageButtonCamera);
         imageButtonGaleria = findViewById(R.id.imageButtonGaleria);
         circleImageViewPerfil = findViewById(R.id.circleImageViewFotoPerfil);
+        editPerfilNome = findViewById(R.id.editPerfilNome);
 
         Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
         toolbar.setTitle("Configurações");
         setSupportActionBar( toolbar );
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Recuperar dados do usuário
+        FirebaseUser usuario = UsuarioFirebase.getUsuarioAtual();
+        Uri url = usuario.getPhotoUrl();
+
+        if ( url != null ){
+            Glide.with(ConfiguracoesActivity.this)
+                    .load( url )
+                    .into( circleImageViewPerfil );
+        }else {
+            circleImageViewPerfil.setImageResource(R.drawable.padrao);
+        }
+
+        editPerfilNome.setText( usuario.getDisplayName() );
 
         imageButtonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +136,39 @@ public class ConfiguracoesActivity extends AppCompatActivity {
 
                     circleImageViewPerfil.setImageBitmap( imagem );
 
+                    //Recuperar dados da imagem para o firebase
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos );
+                    byte[] dadosImagem = baos.toByteArray();
+
+                    //Salvar imagem no firebase
+                    StorageReference imagemRef = storageReference
+                            .child("imagens")
+                            .child("perfil")
+                            //.child( identificadorUsuario )
+                            .child(identificadorUsuario + ".jpeg");
+
+                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConfiguracoesActivity.this,
+                                    "Erro ao fazer upload da imagem",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(ConfiguracoesActivity.this,
+                                    "Sucesso ao fazer upload da imagem",
+                                    Toast.LENGTH_SHORT).show();
+
+                            Uri url = taskSnapshot.getDownloadUrl();
+                            atualizaFotoUsuario( url );
+
+                        }
+                    });
+
                 }
 
             }catch (Exception e){
@@ -108,6 +177,10 @@ public class ConfiguracoesActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public void atualizaFotoUsuario(Uri url){
+        UsuarioFirebase.atualizarFotoUsuario(url);
     }
 
     @Override
@@ -139,5 +212,21 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         dialog.show();
 
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                intent = new Intent(ConfiguracoesActivity.this, PrincipalActivity.class);
+//                intent.putExtra("tela", "RelatorioFragment");
+//                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }
