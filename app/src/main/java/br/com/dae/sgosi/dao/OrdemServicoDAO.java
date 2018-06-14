@@ -26,7 +26,7 @@ public class OrdemServicoDAO {
     private SQLiteDatabase le;
 
     public OrdemServicoDAO(Context context) {
-        DbHelper db = new DbHelper( context );
+        DbHelper db = new DbHelper(context);
         escreve = db.getWritableDatabase();
         le = db.getReadableDatabase();
     }
@@ -156,7 +156,7 @@ public class OrdemServicoDAO {
         return ordemServico;
     }
 
-    public  ArrayList<OrdemServico> consultarOrdemServicoPorCliente(int idCliente) {
+    public ArrayList<OrdemServico> consultarOrdemServicoPorCliente(int idCliente) {
 
         Cursor cursor = le.query("ordem_servico", null, "cliente = ?", new String[]{String.valueOf(idCliente)}, null, null, null);
 
@@ -171,7 +171,7 @@ public class OrdemServicoDAO {
         return listaOrdemServico;
     }
 
-    public  ArrayList<OrdemServico> consultarOrdemServicoPorTipoServico(int idTipoServico) {
+    public ArrayList<OrdemServico> consultarOrdemServicoPorTipoServico(int idTipoServico) {
 
         Cursor cursor = le.query("ordem_servico", null, "tipoServico = ?", new String[]{String.valueOf(idTipoServico)}, null, null, null);
 
@@ -186,7 +186,7 @@ public class OrdemServicoDAO {
         return listaOrdemServico;
     }
 
-    public  ArrayList<OrdemServico> consultarOrdemServicoPorStatus(int idStatus) {
+    public ArrayList<OrdemServico> consultarOrdemServicoPorStatus(int idStatus) {
 
         Cursor cursor = le.query("ordem_servico", null, "status = ?", new String[]{String.valueOf(idStatus)}, null, null, null);
 

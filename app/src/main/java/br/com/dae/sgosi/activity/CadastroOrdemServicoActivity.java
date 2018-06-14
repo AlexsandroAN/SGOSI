@@ -2,16 +2,23 @@ package br.com.dae.sgosi.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +49,10 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
     private ClienteDAO clienteDAO;
     private TipoServicoDAO tipoServicoDAO;
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+    private ImageView imageViewOS;
+    private static final int SELECAO_CAMERA = 100;
+    private static final int SELECAO_GALERIA = 200;
+    private Button btnAnexo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,8 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
         edtDataFim = (EditText) findViewById(R.id.edtDataFim);
         edtDescInicio = (EditText) findViewById(R.id.edtDescInicio);
         edtDescFim = (EditText) findViewById(R.id.edtDescFim);
+        btnAnexo = (Button) findViewById(R.id.btnAnexo);
+        btnAnexo = (Button) findViewById(R.id.btnAnexo);
 
         getSupportActionBar().setTitle("Ordem de Serviço");
 
@@ -77,11 +89,49 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
             edtDataFim.setText(dateFormat.format(editarOrdemServico.getDataFim()));
             edtDescInicio.setText(editarOrdemServico.getDescricaoInicio().toString());
             edtDescFim.setText(editarOrdemServico.getDescricaoFim().toString());
+        } else {
+            btnAnexo.setEnabled(false);
         }
+
+        btnAnexo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CadastroOrdemServicoActivity.this, ListaAnexoActivity.class);
+                intent.putExtra("os", editarOrdemServico);
+                startActivity(intent);
+            }
+        });
 
         this.initClientes();
         this.initStatus();
         this.initTipoServico();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Bitmap imagem = null;
+            try {
+                switch (requestCode) {
+                    case SELECAO_CAMERA:
+                        imagem = (Bitmap) data.getExtras().get("data");
+                        break;
+                    case SELECAO_GALERIA:
+                        Uri localImagemSelecionada = data.getData();
+                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+                        break;
+                }
+
+                if (imagem != null) {
+                    imageViewOS.setImageBitmap(imagem);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private OrdemServico montarOrdemServico() {
@@ -112,6 +162,7 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
             ordemServico.setDescricaoInicio(edtDescInicio.getText().toString());
             ordemServico.setDescricaoFim(edtDescFim.getText().toString());
+
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
@@ -138,7 +189,7 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
         if (editarOrdemServico != null) {
             for (int i = 0; i < listaCliente.size(); i++) {
-                if(listaCliente.get(i).getId() == editarOrdemServico.getCliente().getId()){
+                if (listaCliente.get(i).getId() == editarOrdemServico.getCliente().getId()) {
                     spnClientes.setSelection(listaCliente.get(i).getPosicaoAtual());
                 }
             }
@@ -165,9 +216,9 @@ public class CadastroOrdemServicoActivity extends AppCompatActivity {
 
         if (editarOrdemServico != null) {
             for (int i = 0; i < listaTipoServico.size(); i++) {
-               if(listaTipoServico.get(i).getId() == editarOrdemServico.getTipoServico().getId()){
-                   spnTipoServco.setSelection(listaTipoServico.get(i).getPosicaoAtual());
-               }
+                if (listaTipoServico.get(i).getId() == editarOrdemServico.getTipoServico().getId()) {
+                    spnTipoServco.setSelection(listaTipoServico.get(i).getPosicaoAtual());
+                }
             }
         }
     }

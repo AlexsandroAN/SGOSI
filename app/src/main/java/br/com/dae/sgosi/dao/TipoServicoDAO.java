@@ -47,7 +47,7 @@ public class TipoServicoDAO{
     }
 
     public ArrayList<TipoServico> getLista() {
-        Cursor cursor = escreve.query("tipo_servico", null, null, null, null, null, null);
+        Cursor cursor = le.query("tipo_servico", null, null, null, null, null, null);
 
         ArrayList<TipoServico> listaTipoServico = new ArrayList<TipoServico>();
 

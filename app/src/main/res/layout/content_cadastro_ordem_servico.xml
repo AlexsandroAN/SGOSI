@@ -133,6 +133,56 @@
                 android:inputType="text"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/imgButtonCamera"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/circleImageViewFotoPerfil"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/imageButtonGaleria"-->
+                <!--app:layout_constraintHorizontal_bias="0.5"-->
+                <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintVertical_bias="1.0"-->
+                <!--app:srcCompat="@drawable/ic_camera_cinza_24dp" />-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/imgButtonGaleria"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/circleImageViewFotoPerfil"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.5"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageButtonCamera"-->
+                <!--app:layout_constraintVertical_bias="1.0"-->
+                <!--app:srcCompat="@drawable/ic_foto_cinza_24dp" />-->
+
+
+            <!--<ImageView-->
+                <!--android:id="@+id/imageViewOS"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--app:srcCompat="@android:drawable/btn_star" />-->
+
+        <!--</LinearLayout>-->
+
+        <Button
+            android:id="@+id/btnAnexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listar Anexos" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

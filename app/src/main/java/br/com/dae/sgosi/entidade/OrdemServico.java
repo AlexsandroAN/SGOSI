@@ -24,6 +24,8 @@ public class OrdemServico implements Serializable {
 
     private String descricaoFim;
 
+    private byte[] foto;
+
     public int getId() {
         return id;
     }
@@ -88,7 +90,13 @@ public class OrdemServico implements Serializable {
         this.descricaoFim = descricaoFim;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
 
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
     @Override
     public String toString() {
