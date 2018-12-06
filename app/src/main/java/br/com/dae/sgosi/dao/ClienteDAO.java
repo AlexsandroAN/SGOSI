@@ -19,6 +19,7 @@ import br.com.dae.sgosi.helper.DbHelper;
 public class ClienteDAO{
 
     private SQLiteDatabase escreve;
+
     private SQLiteDatabase le;
 
 
@@ -26,8 +27,6 @@ public class ClienteDAO{
         DbHelper db = new DbHelper( context );
         escreve = db.getWritableDatabase();
         le = db.getReadableDatabase();
-
-
     }
 
 
