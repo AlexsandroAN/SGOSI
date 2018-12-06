@@ -27,6 +27,7 @@ public class ClienteDAO{
         escreve = db.getWritableDatabase();
         le = db.getReadableDatabase();
 
+
     }
 
 
